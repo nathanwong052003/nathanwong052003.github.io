@@ -195,7 +195,7 @@ input, select, textarea {
 		font-weight: 300;
 		line-height: 1.375;
 		letter-spacing: -0.05em;
-		margin: 0 1rem 1rem 0;
+		margin: 0 0 0 0;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -2695,7 +2695,7 @@ input, select, textarea {
 	ul {
 		list-style: disc;
 		margin: 0 0 2rem 0;
-		padding-left: 1rem;
+		padding-left: 2rem;
 	}
 
 		ul li {
