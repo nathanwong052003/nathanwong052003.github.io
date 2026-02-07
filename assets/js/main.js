@@ -96,8 +96,8 @@
 				})();
 
 	// Smooth scroll.
-		$('.smooth-scroll').scrolly();
-		$('.smooth-scroll-middle').scrolly({ anchor: 'middle' });
+		$('.smooth-scroll').scrolly({ speed: 300 });
+		$('.smooth-scroll-middle').scrolly({ anchor: 'middle', speed: 300 });
 
 	// Wrapper.
 		$wrapper.children()
@@ -190,16 +190,19 @@
 				.on('wheel', '.inner', function(event) {
 
 					var	$this = $(this),
-						delta = (event.originalEvent.deltaX * 10);
+					delta = (event.originalEvent.deltaY * 12);
 
-					// Cap delta.
-						if (delta > 0)
-							delta = Math.min(25, delta);
-						else if (delta < 0)
-							delta = Math.max(-25, delta);
+				// Cap delta.
+					if (delta > 0)
+						delta = Math.min(80, delta);
+					else if (delta < 0)
+						delta = Math.max(-80, delta);
 
-					// Scroll.
-						$this.scrollLeft( $this.scrollLeft() + delta );
+				// Scroll.
+					$this.scrollLeft( $this.scrollLeft() + delta );
+
+				// Prevent default vertical scroll.
+					event.preventDefault();
 
 				})
 				.on('mouseenter', '.forward, .backward', function(event) {
