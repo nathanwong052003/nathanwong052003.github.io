@@ -139,7 +139,7 @@ This project is open source and available for personal and commercial use.
 
 ## 🤝 Contributing
 
-Feel free to fork this project and customize it for your own portfolio!
+Feel free to fork this project and customize it for your own portfolio.
 
 ## 📧 Contact
 
@@ -149,4 +149,4 @@ Feel free to fork this project and customize it for your own portfolio!
 
 ---
 
-Made with ❤️ by Nathan Wong Shih Hao
+Made by Nathan Wong Shih Hao

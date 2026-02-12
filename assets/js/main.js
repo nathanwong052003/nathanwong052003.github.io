@@ -174,21 +174,108 @@ function setActiveNav() {
 window.addEventListener('scroll', setActiveNav);
 
 // ========================================
-// Gallery Image Modal (Optional Enhancement)
+// Gallery Lightbox Modal
 // ========================================
-const galleryItems = document.querySelectorAll('.gallery-item');
-galleryItems.forEach(item => {
-    item.addEventListener('click', function() {
-        const img = this.querySelector('img');
-        const overlay = this.querySelector('.gallery-overlay');
-        
-        // You can add a lightbox/modal here if desired
-        // For now, this adds a subtle effect
-        this.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-            this.style.transform = 'scale(1)';
-        }, 200);
+document.addEventListener('DOMContentLoaded', function() {
+    const galleryItems = document.querySelectorAll('.gallery-item a');
+    const galleryModal = document.querySelector('.gallery .modal');
+    const galleryModalImg = galleryModal ? galleryModal.querySelector('img') : null;
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const href = this.getAttribute('href');
+
+            // Check if it's an image
+            if (!href.match(/\.(jpg|gif|png|mp4)$/i)) {
+                return;
+            }
+
+            // Prevent if modal is locked
+            if (galleryModal._locked) {
+                return;
+            }
+
+            // Lock modal
+            galleryModal._locked = true;
+
+            // Set image source
+            galleryModalImg.src = href;
+            galleryModalImg.alt = this.querySelector('img').alt;
+
+            // Show modal
+            galleryModal.classList.add('visible');
+
+            // Focus modal
+            galleryModal.focus();
+
+            // Unlock after delay
+            setTimeout(() => {
+                galleryModal._locked = false;
+            }, 600);
+        });
     });
+
+    // Modal click to close
+    if (galleryModal) {
+        galleryModal.addEventListener('click', function(e) {
+            // Prevent if modal is locked
+            if (this._locked) {
+                return;
+            }
+
+            // Already hidden? Bail
+            if (!this.classList.contains('visible')) {
+                return;
+            }
+
+            // Lock modal
+            this._locked = true;
+
+            // Remove loaded and visible classes
+            this.classList.remove('loaded');
+            this.classList.remove('visible');
+
+            // Delay for animation
+            setTimeout(() => {
+                // Clear image source
+                galleryModalImg.src = '';
+                galleryModalImg.alt = '';
+
+                // Unlock
+                this._locked = false;
+
+                // Focus back to body
+                document.body.focus();
+            }, 475);
+        });
+
+        // ESC key to close modal
+        galleryModal.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                this.click();
+            }
+        });
+    }
+
+    // Image load handler
+    if (galleryModalImg) {
+        galleryModalImg.addEventListener('load', function() {
+            const modal = this.closest('.modal');
+
+            setTimeout(() => {
+                // No longer visible? Bail
+                if (!modal.classList.contains('visible')) {
+                    return;
+                }
+
+                // Add loaded class
+                modal.classList.add('loaded');
+            }, 275);
+        });
+    }
 });
 
 // ========================================
