@@ -1,15 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Wong Shih Hao - Portfolio</title>
+    <meta name="description" content="Portfolio of Nathan Wong Shih Hao - Computer Scientist, Data Scientist & Data Engineer">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="nav-container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="bracket">&lt;</span>NWSH<span class="bracket">/&gt;</span>
+                </div>
+                <div class="nav-links desktop-nav">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="mobile-nav" id="mobile-nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Personal website for student</title>
-    </head>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="welcome-badge">
+                        👋 Welcome to my portfolio
+                    </div>
+                    <h1 class="hero-title">
+                        Hi, I'm <span class="highlight">Nathan Wong Shih Hao</span>
+                    </h1>
+                    <h2 class="hero-subtitle">
+                        Computer Scientist, Data Scientist & Data Engineer
+                    </h2>
+                    <p class="hero-description">
+                        I speak in English, Chinese Mandarin and Bahasa Indonesia. I make stuff for fun.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                        <a href="#projects" class="btn btn-secondary">View Projects</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/nathanwong052003" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/nathan-wong-shih-hao" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:nathanwongshihhao@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="image-glow"></div>
+                    <img src="https://images.unsplash.com/photo-1683813479742-4730f91fa3ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21wdXRlciUyMHNjaWVuY2UlMjBjb2RpbmclMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzcwOTAyMDQ1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Coding workspace">
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <a href="#about" class="scroll-arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Introduction</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-text">
+                        Hello! I'm Nathan Wong Shih Hao, a Computer Science student at HKUST with a passion for data science and engineering. 
+                        I enjoy exploring new technologies and applying them to solve real-world problems.
+                    </p>
+                    <p class="about-text">
+                        Welcome to my personal website where I share my projects, experiences, and interests. Feel free to explore and connect with me!
+                    </p>
+                    <a href="documents/Nathan_Wong_CV.pdf" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Download my CV
+                    </a>
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Education</h3>
+                                <p>B.S. in Computer Science</p>
+                                <p class="stat-subtext">HKUST</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Specialization</h3>
+                                <p>Data Science</p>
+                                <p class="stat-subtext">Data Engineering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-card">
+                    <h3>Languages I Speak</h3>
+                    <ul class="languages-list">
+                        <li>
+                            <div class="bullet"></div>
+                            <div>
+                                <p class="language-name">English</p>
+                                <p class="language-level">Fluent</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet"></div>
+                            <div>
+                                <p class="language-name">Chinese Mandarin</p>
+                                <p class="language-level">Fluent</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet"></div>
+                            <div>
+                                <p class="language-name">Bahasa Indonesia</p>
+                                <p class="language-level">Fluent</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Skills</h2>
+                <div class="section-divider"></div>
+                <p class="section-description">Technologies and tools I work with</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Python</span>
+                                <span class="skill-stars">★★★★★</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>SQL</span>
+                                <span class="skill-stars">★★★★★</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>CSS</span>
+                                <span class="skill-stars">★★★★★</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>C++</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>C#</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>HTML</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Java</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>JavaScript</span>
+                                <span class="skill-stars">★★★☆☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Bash</span>
+                                <span class="skill-stars">★★★☆☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Tech Stack</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Git</span>
+                                <span class="skill-stars">★★★★★</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Docker</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Apache Spark</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Apache Kafka</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>AWS EC2</span>
+                                <span class="skill-stars">★★★★☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Jenkins</span>
+                                <span class="skill-stars">★★★☆☆</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Projects</h2>
+                <div class="section-divider"></div>
+                <p class="section-description">Some of my recent work</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1762279389083-abf71f22d338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWNoaW5lJTIwbGVhcm5pbmclMjBkYXRhJTIwdmlzdWFsaXphdGlvbnxlbnwxfHx8fDE3NzA4NTgzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Time Series Forecasting">
+                    </div>
+                    <div class="project-content">
+                        <h3>Time Series Forecasting</h3>
+                        <p>Project focuses on time series forecasting of the S&P 500 index. Exploring various methods, including ARIMA, SARIMA, ETS, LightGBM, and LSTMs, to gain insights into market trends.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">ARIMA</span>
+                            <span class="tag">SARIMA</span>
+                            <span class="tag">LightGBM</span>
+                            <span class="tag">LSTM</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/nathanwong052003/snp500-time-series-prediction" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1627634771121-fa3db5779f60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudCUyMHByb2plY3R8ZW58MXx8fHwxNzcwODc2NTgyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="OCR Summarizer">
+                    </div>
+                    <div class="project-content">
+                        <h3>OCR Summarizer</h3>
+                        <p>Developed an Optical Character Recognition (OCR) summarizer that analyzes complex texts and generates concise summaries. This project solidified my understanding of OCR technology and natural language processing.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">OCR</span>
+                            <span class="tag">NLP</span>
+                            <span class="tag">Machine Learning</span>
+                        </div>
+                        <div class="project-links">
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1605108222700-0d605d9ebafe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzcwODc3NDQwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Personal Website">
+                    </div>
+                    <div class="project-content">
+                        <h3>Personal Website</h3>
+                        <p>Self-initiated project to build a personal website using HTML, CSS, and JavaScript. Continuously updating and improving the website to include new features.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">React</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://nathanwong052003.github.io/" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Experiences Section -->
+    <section id="experience" class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2>Job Experiences</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="experience-timeline">
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="experience-title">
+                            <h3>Hitachi Rail GTS</h3>
+                            <h4>R&D Software Intern</h4>
+                            <p class="experience-period">June 2025 to January 2026</p>
+                        </div>
+                    </div>
+                    <ul class="experience-list">
+                        <li>Researched regression models for Project NAIA to forecast passenger flow analytics for multi-line networks.</li>
+                        <li>Enhanced the performance of the primary scripting algorithm by 20% and optimized the data collection system through the use of batch processing in ClickHouse DB, leveraging its OLAP architecture for improved query performance.</li>
+                        <li>Engineered a Kafka pipeline and implemented a producer-consumer side schema registry, integrating schema validation to facilitate the ingestion of data in various formats for improved data processing and pipeline integration.</li>
+                        <li>Coordinated the deployment of Project NAIA to Hitachi's ALVEA platform by implementing a Jenkins CI/CD pipeline for integrated testing and employing a Kubernetes cluster for operational management, with an emphasis on scalability.</li>
+                        <li>Explored the most effective time series forecasting models, concentrating on ARIMA, SARIMAX, and LightGBM.</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="experience-title">
+                            <h3>Total Rehabilitation Management (HK)</h3>
+                            <h4>Software Developer</h4>
+                            <p class="experience-period">June 2024 to August 2024</p>
+                        </div>
+                    </div>
+                    <ul class="experience-list">
+                        <li>Designed and implemented a client-side legal document search bar using JavaScript, C#, and MySQL, achieving 70% completion within the timeline. Streamlined legal document retrieval, reducing search time by 50%.</li>
+                        <li>Collaborated with the Claims Department to revamp a data extraction system utilizing Python and MySQL, achieving automation in insurance claim data processing that reduced analysis time by 80%, enhancing operational efficiency.</li>
+                        <li>Researched and evaluated multiple large language models (GPT-4o, GPT 4o-mini, Claude, Gemini, etc) to filter and prioritize insurance claim information, reducing manual bias and document review times by 20%.</li>
+                        <li>Led the development and deployment of a chatbot for the internal staff portal using JavaScript and C#, increasing user engagement from 2 messages per week to 20 messages per day and enhancing staff-client communication.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizational Experiences Section -->
+    <section id="organizations" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Organizational Experiences</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="experience-timeline">
+                <div class="org-card">
+                    <div class="experience-header">
+                        <div class="org-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="experience-title">
+                            <h3>Southeast Asian Students' Association by HKUSTSU</h3>
+                            <h4>President</h4>
+                        </div>
+                    </div>
+                    <ul class="experience-list">
+                        <li>Oversaw the progress of six events and directed a team of 20 while actively initiating new projects and initiatives.</li>
+                        <li>Increased participation rates to events by 300% from the 4 major Southeast Asian country groups in HKUST.</li>
+                        <li>Advocated recommendations to Southeast Asians in HKUST and acting as representatives to the Student Union.</li>
+                    </ul>
+                </div>
+                <div class="org-card">
+                    <div class="experience-header">
+                        <div class="org-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="experience-title">
+                            <h3>International Council of Malaysian Scholars (ICMS)</h3>
+                            <h4>Internal Affairs and Executive Director</h4>
+                        </div>
+                    </div>
+                    <ul class="experience-list">
+                        <li>Led the Internal Affairs division consisting of 28 chapter directors and 92 associates from all over the globe.</li>
+                        <li>Spearheaded the Gala Night Initiative with 250 attendees consisting of sponsors and alumni for a night of reunion.</li>
+                        <li>Established connections with companies such as Axiata, Shopee, Shell, Procter & Gamble, Maybank and Sunway.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Year Project Section -->
+    <section id="fyp" class="section section-gradient">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Final Year Project</h2>
+                <div class="section-divider"></div>
+                <h3 class="section-subtitle">Project NAIA</h3>
+            </div>
+            <div class="fyp-content">
+                <p class="fyp-description">
+                    Project NAIA is a comprehensive passenger flow analytics system developed for multi-line railway networks. 
+                    The project leverages advanced time series forecasting techniques and big data processing to predict and analyze passenger movement patterns.
+                </p>
+                <div class="fyp-details">
+                    <div class="fyp-column">
+                        <h4>Key Technologies</h4>
+                        <ul class="fyp-list">
+                            <li>Time Series Forecasting (ARIMA, SARIMAX, LightGBM)</li>
+                            <li>Apache Kafka for data streaming</li>
+                            <li>ClickHouse DB for OLAP operations</li>
+                            <li>Jenkins CI/CD Pipeline</li>
+                            <li>Kubernetes for deployment</li>
+                        </ul>
+                    </div>
+                    <div class="fyp-column">
+                        <h4>Achievements</h4>
+                        <ul class="fyp-list">
+                            <li>20% performance improvement in scripting algorithms</li>
+                            <li>Scalable deployment on Hitachi's ALVEA platform</li>
+                            <li>Integrated schema validation for multi-format data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fyp-note">
+                    <p><strong>Note:</strong> This project was developed in collaboration with Hitachi Rail GTS as part of my research and development internship.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h2>Gallery</h2>
+                <div class="section-divider"></div>
+                <p class="section-description">I also take some pictures!</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1674699244662-980de86e2bbb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b3JvbnRvJTIwc2t5bGluZSUyMG5pZ2h0fGVufDF8fHx8MTc3MDgyNjYxNHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Toronto Skyline at Night">
+                    <div class="gallery-overlay">
+                        <h3>Toronto Skyline at Night</h3>
+                        <p>Toronto, October 2024</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1611963058380-4a114d1e9731?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYW5mZiUyMG1vdW50YWluJTIwbGFrZXxlbnwxfHx8fDE3NzA5MDI4MTR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Mount Vermont">
+                    <div class="gallery-overlay">
+                        <h3>Mount Vermont</h3>
+                        <p>Banff, October 2024</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1755689910361-4793707c160f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWtlcnklMjBjb2ZmZWUlMjBzaG9wfGVufDF8fHx8MTc3MDkwMjgxNnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Bakehouse">
+                    <div class="gallery-overlay">
+                        <h3>Bakehouse</h3>
+                        <p>Hong Kong, January 2026</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1669061271628-b96df6faadbf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsYWtlJTIwbG91aXNlJTIwc3VucmlzZSUyMGNhbmFkYXxlbnwxfHx8fDE3NzA5MDI4MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Calm Sunrise">
+                    <div class="gallery-overlay">
+                        <h3>Calm Sunrise</h3>
+                        <p>Lake Louise, October 2024</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1611963058380-4a114d1e9731?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYW5mZiUyMG1vdW50YWluJTIwbGFrZXxlbnwxfHx8fDE3NzA5MDI4MTR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cabin by the Lake">
+                    <div class="gallery-overlay">
+                        <h3>Cabin by the Lake</h3>
+                        <p>Lake Louise, October 2024</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1732029461791-d8cc10292acf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob25nJTIwa29uZyUyMHRyYW0lMjBuaWdodHxlbnwxfHx8fDE3NzA5MDI4MTV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Tram">
+                    <div class="gallery-overlay">
+                        <h3>Tram</h3>
+                        <p>Hong Kong, September 2025</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1666899354442-d8b958627dd1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob25nJTIwa29uZyUyMHNreWxpbmUlMjBuaWdodHxlbnwxfHx8fDE3NzA4MDU5ODR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Hong Kong at Night 1">
+                    <div class="gallery-overlay">
+                        <h3>Hong Kong at Night 1</h3>
+                        <p>Hong Kong, September 2025</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1666899354442-d8b958627dd1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob25nJTIwa29uZyUyMHNreWxpbmUlMjBuaWdodHxlbnwxfHx8fDE3NzA4MDU5ODR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Hong Kong at Night 2">
+                    <div class="gallery-overlay">
+                        <h3>Hong Kong at Night 2</h3>
+                        <p>Hong Kong, September 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Form</h2>
+                <div class="section-divider"></div>
+                <p class="section-description">Feel free to reach out for collaborations or just a friendly chat</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p class="contact-text">
+                        I'm always interested in hearing about new projects and opportunities. 
+                        Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>nathanwongshihhao@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Hong Kong</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contact-form" action="https://formspree.io/f/mrelvaqq" method="POST">
+                        <input type="hidden" name="_subject" value="New Contact Form Submission from Portfolio Website">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Your message..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <span class="bracket">&lt;</span>NWSH<span class="bracket">/&gt;</span>
+                    </div>
+                    <p>Building the future, one line of code at a time.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <div class="footer-social">
+                        <a href="https://github.com/nathanwong052003" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/nathan-wong-shih-hao" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:nathanwongshihhao@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2026 Nathan Wong Shih Hao. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
