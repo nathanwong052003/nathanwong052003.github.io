@@ -8,7 +8,7 @@ export function Footer() {
           <div>
             <div className="font-mono mb-4">
               <span className="text-blue-400">&lt;</span>
-              <span>CS Student</span>
+              <span>NWSH</span>
               <span className="text-blue-400">/&gt;</span>
             </div>
             <p className="text-gray-400">
@@ -31,7 +31,7 @@ export function Footer() {
             <h3 className="mb-4">Connect</h3>
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/nathanwong052003"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-blue-600 transition-colors"
@@ -39,7 +39,7 @@ export function Footer() {
                 <Github className="w-6 h-6" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/nathan-wong-shih-hao"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-blue-600 transition-colors"
@@ -47,7 +47,7 @@ export function Footer() {
                 <Linkedin className="w-6 h-6" />
               </a>
               <a
-                href="mailto:student@example.com"
+                href="mailto:nathanwongshihhao@gmail.com"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-blue-600 transition-colors"
               >
                 <Mail className="w-6 h-6" />
@@ -58,7 +58,7 @@ export function Footer() {
 
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
           <p className="flex items-center justify-center gap-2">
-            Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by Alex © {new Date().getFullYear()}
+            2026 Nathan Wong Shih Hao. All rights reserved.
           </p>
         </div>
       </div>

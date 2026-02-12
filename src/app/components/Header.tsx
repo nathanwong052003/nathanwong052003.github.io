@@ -16,7 +16,7 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="font-mono">
             <span className="text-blue-600">&lt;</span>
-            <span>CS Student</span>
+            <span>NWSH</span>
             <span className="text-blue-600">/&gt;</span>
           </div>
 
@@ -33,6 +33,12 @@ export function Header() {
             </button>
             <button onClick={() => scrollToSection('projects')} className="hover:text-blue-600 transition-colors">
               Projects
+            </button>
+            <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors">
+              Experience
+            </button>
+            <button onClick={() => scrollToSection('gallery')} className="hover:text-blue-600 transition-colors">
+              Gallery
             </button>
             <button onClick={() => scrollToSection('contact')} className="hover:text-blue-600 transition-colors">
               Contact
@@ -75,6 +81,18 @@ export function Header() {
               className="block w-full text-left py-2 hover:text-blue-600 transition-colors"
             >
               Projects
+            </button>
+            <button
+              onClick={() => scrollToSection('experience')}
+              className="block w-full text-left py-2 hover:text-blue-600 transition-colors"
+            >
+              Experience
+            </button>
+            <button
+              onClick={() => scrollToSection('gallery')}
+              className="block w-full text-left py-2 hover:text-blue-600 transition-colors"
+            >
+              Gallery
             </button>
             <button
               onClick={() => scrollToSection('contact')}

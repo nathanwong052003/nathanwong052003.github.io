@@ -10,9 +10,27 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission (would typically send to a backend)
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    
+    // Create form data for Formspree
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+    
+    fetch('https://formspree.io/f/mrelvaqq', {
+      method: 'POST',
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        alert('Thank you for your message! I will get back to you soon.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        alert('There was an error sending your message. Please try again.');
+      }
+    }).catch(() => {
+      alert('There was an error sending your message. Please try again.');
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,7 +44,7 @@ export function Contact() {
     <section id="contact" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl mb-4">Get In Touch</h2>
+          <h2 className="text-4xl mb-4">Contact Form</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
           <p className="text-gray-600 mt-4">Feel free to reach out for collaborations or just a friendly chat</p>
         </div>
@@ -48,17 +66,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="mb-1">Email</h4>
-                  <p className="text-gray-600">alex.student@university.edu</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-blue-100 rounded-lg">
-                  <Phone className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <h4 className="mb-1">Phone</h4>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <p className="text-gray-600">nathanwongshihhao@gmail.com</p>
                 </div>
               </div>
 
@@ -68,7 +76,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="mb-1">Location</h4>
-                  <p className="text-gray-600">San Francisco, CA</p>
+                  <p className="text-gray-600">Hong Kong</p>
                 </div>
               </div>
             </div>
@@ -76,6 +84,8 @@ export function Contact() {
 
           <div className="bg-white p-8 rounded-lg shadow-md">
             <form onSubmit={handleSubmit} className="space-y-6">
+              <input type="hidden" name="_subject" value="New Contact Form Submission from Portfolio Website" />
+              
               <div>
                 <label htmlFor="name" className="block mb-2">
                   Name

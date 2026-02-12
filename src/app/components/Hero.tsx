@@ -15,13 +15,13 @@ export function Hero() {
               👋 Welcome to my portfolio
             </div>
             <h1 className="text-5xl md:text-6xl">
-              Hi, I'm <span className="text-blue-600">Alex</span>
+              Hi, I'm <span className="text-blue-600">Nathan Wong Shih Hao</span>
             </h1>
             <h2 className="text-3xl md:text-4xl text-gray-700">
-              Computer Science Student
+              Computer Scientist, Data Scientist & Data Engineer
             </h2>
             <p className="text-xl text-gray-600">
-              Passionate about building innovative solutions and exploring the intersection of technology and creativity.
+              I speak in English, Chinese Mandarin and Bahasa Indonesia. I make stuff for fun.
             </p>
             <div className="flex gap-4">
               <a
@@ -38,13 +38,13 @@ export function Hero() {
               </button>
             </div>
             <div className="flex gap-4 pt-4">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:text-blue-600 transition-colors">
+              <a href="https://github.com/nathanwong052003" target="_blank" rel="noopener noreferrer" className="p-2 hover:text-blue-600 transition-colors">
                 <Github className="w-6 h-6" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:text-blue-600 transition-colors">
+              <a href="https://www.linkedin.com/in/nathan-wong-shih-hao" target="_blank" rel="noopener noreferrer" className="p-2 hover:text-blue-600 transition-colors">
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a href="mailto:student@example.com" className="p-2 hover:text-blue-600 transition-colors">
+              <a href="mailto:nathanwongshihhao@gmail.com" className="p-2 hover:text-blue-600 transition-colors">
                 <Mail className="w-6 h-6" />
               </a>
             </div>

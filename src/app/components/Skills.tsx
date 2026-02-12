@@ -1,40 +1,28 @@
 export function Skills() {
   const skillCategories = [
     {
-      title: 'Languages',
+      title: 'Programming Languages',
       skills: [
-        { name: 'Python', level: 90 },
-        { name: 'JavaScript/TypeScript', level: 85 },
+        { name: 'Python', level: 100 },
+        { name: 'SQL', level: 100 },
+        { name: 'CSS', level: 100 },
+        { name: 'C++', level: 80 },
+        { name: 'C#', level: 80 },
+        { name: 'HTML', level: 80 },
         { name: 'Java', level: 80 },
-        { name: 'C++', level: 75 },
-        { name: 'SQL', level: 70 },
+        { name: 'JavaScript', level: 60 },
+        { name: 'Bash', level: 60 },
       ],
     },
     {
-      title: 'Frontend',
+      title: 'Tools & Tech Stack',
       skills: [
-        { name: 'React', level: 85 },
-        { name: 'HTML/CSS', level: 90 },
-        { name: 'Tailwind CSS', level: 85 },
-        { name: 'Next.js', level: 75 },
-      ],
-    },
-    {
-      title: 'Backend & Database',
-      skills: [
-        { name: 'Node.js', level: 80 },
-        { name: 'Express.js', level: 75 },
-        { name: 'PostgreSQL', level: 70 },
-        { name: 'MongoDB', level: 75 },
-      ],
-    },
-    {
-      title: 'Tools & Technologies',
-      skills: [
-        { name: 'Git/GitHub', level: 85 },
-        { name: 'Docker', level: 65 },
-        { name: 'AWS', level: 60 },
-        { name: 'Linux', level: 75 },
+        { name: 'Git', level: 100 },
+        { name: 'Docker', level: 80 },
+        { name: 'Apache Spark', level: 80 },
+        { name: 'Apache Kafka', level: 80 },
+        { name: 'AWS EC2', level: 80 },
+        { name: 'Jenkins', level: 60 },
       ],
     },
   ];
@@ -57,7 +45,10 @@ export function Skills() {
                   <div key={skill.name}>
                     <div className="flex justify-between mb-2">
                       <span>{skill.name}</span>
-                      <span className="text-gray-500">{skill.level}%</span>
+                      <span className="text-gray-500">
+                        {'★'.repeat(Math.ceil(skill.level / 20))}
+                        {'☆'.repeat(5 - Math.ceil(skill.level / 20))}
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
