@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day 2026</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div id="floating-hearts-container"></div>
+
+    <!-- Question Popup Modal -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-btn" id="close-popup" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="popup-hearts">
+                <svg class="popup-heart popup-heart-1" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <svg class="popup-heart popup-heart-2" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+            
+            <div class="popup-icon">
+            </div>
+            
+            <h2 class="popup-title">Think you know what the question is...</h2>
+            <p class="popup-text">Natalie, do you wanna be my Valentines?</p>
+            
+            <div class="popup-buttons">
+                <button class="btn btn-yes" id="btn-yes">Yes</button>
+                <button class="btn btn-no" id="btn-no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main class="main-content">
+            <!-- Title Section -->
+            <div class="title-section fade-in">
+                <svg class="main-heart pulse" width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <h1 class="main-title">Happy Valentine's Day!</h1>
+                <p class="subtitle">Yeah, I know I'm a tad bit cringe but whatever HAPPY VALENTINES <333 </p>
+            </div>
+
+            <!-- Interactive Button -->
+            <div class="button-section">
+                <button class="main-button" id="main-button">
+                    <span class="button-content">
+                        Click
+                    </span>
+                </button>
+            </div>
+
+            <!-- Response Message -->
+            <div id="response-message" style="display: none;"></div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ by me :)</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
