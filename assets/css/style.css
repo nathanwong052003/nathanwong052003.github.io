@@ -176,10 +176,10 @@ ul {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 2fr 1fr;
+    gap: 5rem;
     align-items: center;
-    padding: 5rem 0;
+    padding: 3rem 0 2rem;
 }
 
 .hero-content {
@@ -199,7 +199,7 @@ ul {
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     line-height: 1.2;
     font-weight: bold;
 }
@@ -209,7 +209,7 @@ ul {
 }
 
 .hero-subtitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--text-gray);
     font-weight: 400;
 }
@@ -234,6 +234,8 @@ ul {
 .social-links a {
     width: 2.5rem;
     height: 2.5rem;
+    border: 1px solid #d0d0d0;
+    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,7 +268,7 @@ ul {
 .scroll-indicator {
     display: flex;
     justify-content: center;
-    margin-top: 4rem;
+    margin-top: 0rem;
 }
 
 .scroll-arrow {

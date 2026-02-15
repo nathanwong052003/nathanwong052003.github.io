@@ -337,9 +337,9 @@ createScrollToTopButton();
 // ========================================
 // Console Easter Egg
 // ========================================
-console.log('%c👋 Hello there!', 'font-size: 20px; font-weight: bold; color: #2563eb;');
-console.log('%cThanks for checking out my portfolio!', 'font-size: 14px; color: #6b7280;');
-console.log('%cFeel free to reach out: nathanwongshihhao@gmail.com', 'font-size: 14px; color: #2563eb;');
+console.log('%cHeyooo!🫡', 'font-size: 20px; font-weight: bold; color: #2ceb25;');
+console.log('%cThanks for checking out my portfolio :))', 'font-size: 14px; color: #cf4242;');
+console.log('%cFeel free to reach out: nathanwongshihhao@gmail.com', 'font-size: 14px; color: #2ceb25;');
 
 // ========================================
 // Loading Animation (Optional)
