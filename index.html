@@ -342,6 +342,15 @@ ul { list-style: none; }
   color: rgba(232,227,214,0.6); transition: color 0.15s;
 }
 #lightbox-close:hover { color: var(--terminal-fg); }
+.lightbox-nav {
+  position: absolute; bottom: 60px; top: auto;
+  font-size: 28px; color: rgba(232,227,214,0.5); background: none; border: 0;
+  padding: 8px 14px; cursor: pointer; transition: color 0.15s, background 0.15s;
+  z-index: 10; line-height: 1;
+}
+.lightbox-nav:hover { color: var(--terminal-fg); background: rgba(255,255,255,0.06); border-radius: 4px; }
+#lightbox-prev { left: 50%; transform: translateX(calc(-100% - 6px)); }
+#lightbox-next { left: 50%; transform: translateX(6px); }
 #lightbox-cap {
   position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
   font-size: 12px; color: rgba(232,227,214,0.5); letter-spacing: 0.08em;
@@ -781,6 +790,8 @@ footer {
 <!-- Lightbox -->
 <div id="lightbox">
   <button id="lightbox-close" aria-label="close">✕</button>
+  <button id="lightbox-prev" class="lightbox-nav" aria-label="previous photo">‹</button>
+  <button id="lightbox-next" class="lightbox-nav" aria-label="next photo">›</button>
   <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" />
   <div id="lightbox-cap"></div>
 </div>
@@ -1022,18 +1033,46 @@ window.addEventListener('resize', checkExpCols);
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
 const lbCap = document.getElementById('lightbox-cap');
-document.querySelectorAll('.gallery-item').forEach(item => {
-  item.addEventListener('click', () => {
-    lbImg.src = item.dataset.full || item.querySelector('img').src;
-    lbCap.textContent = item.dataset.cap || '';
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  });
+const lbPrev = document.getElementById('lightbox-prev');
+const lbNext = document.getElementById('lightbox-next');
+const galleryItems = document.querySelectorAll('.gallery-item');
+let currentIdx = -1;
+
+function openLb(idx) {
+  if (idx < 0 || idx >= galleryItems.length) return;
+  currentIdx = idx;
+  const item = galleryItems[idx];
+  lbImg.src = item.dataset.full || item.querySelector('img').src;
+  lbCap.textContent = item.dataset.cap || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function prevLb() {
+  const idx = currentIdx <= 0 ? galleryItems.length - 1 : currentIdx - 1;
+  openLb(idx);
+}
+
+function nextLb() {
+  const idx = currentIdx >= galleryItems.length - 1 ? 0 : currentIdx + 1;
+  openLb(idx);
+}
+
+function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; currentIdx = -1; }
+
+galleryItems.forEach((item, i) => {
+  item.addEventListener('click', () => openLb(i));
 });
-function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+
 document.getElementById('lightbox-close').addEventListener('click', closeLb);
 lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+lbPrev.addEventListener('click', e => { e.stopPropagation(); prevLb(); });
+lbNext.addEventListener('click', e => { e.stopPropagation(); nextLb(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft' && lb.classList.contains('open')) prevLb();
+  if (e.key === 'ArrowRight' && lb.classList.contains('open')) nextLb();
+});
 </script>
 </body>
 </html>
