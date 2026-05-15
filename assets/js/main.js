@@ -380,7 +380,21 @@ function openLb(idx) {
   if (idx < 0 || idx >= galleryItems.length) return;
   currentIdx = idx;
   const item = galleryItems[idx];
-  lbImg.src = item.dataset.full || item.querySelector('img').src;
+  const thumb = item.querySelector('img').src;
+  const full = item.dataset.full || thumb;
+
+  lbImg.src = thumb;
+  lbImg.style.filter = 'blur(3px)';
+  lbImg.style.transition = 'filter 0.2s';
+  const fullImg = new Image();
+  fullImg.onload = () => {
+    if (currentIdx === idx) {
+      lbImg.src = full;
+      lbImg.style.filter = '';
+    }
+  };
+  fullImg.src = full;
+
   lbCap.textContent = item.dataset.cap || '';
   lbPrev.style.display = '';
   lbNext.style.display = '';
@@ -405,6 +419,14 @@ function closeLb() {
 }
 
 galleryItems.forEach((item, i) => {
+  let preloaded = false;
+  item.addEventListener('mouseenter', () => {
+    if (!preloaded) {
+      preloaded = true;
+      const img = new Image();
+      img.src = item.dataset.full || item.querySelector('img').src;
+    }
+  });
   item.addEventListener('click', () => openLb(i));
 });
 
@@ -478,12 +500,8 @@ document.addEventListener('keydown', e => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const items = document.querySelectorAll('.project-item');
   items.forEach(item => {
-    const thumbWrap = item.querySelector('.proj-thumb-wrap');
-    if (thumbWrap) {
-      const shine = document.createElement('div');
-      shine.className = 'proj-tilt-shine';
-      thumbWrap.appendChild(shine);
-    }
+    const contentDiv = item.children[1];
+    if (!contentDiv) return;
 
     item.addEventListener('mousemove', (e) => {
       const rect = item.getBoundingClientRect();
@@ -492,22 +510,13 @@ document.addEventListener('keydown', e => {
       const dx = (e.clientX - cx) / (rect.width / 2);
       const dy = (e.clientY - cy) / (rect.height / 2);
       const maxRot = 6;
-      item.style.transform = `perspective(900px) rotateY(${dx * maxRot}deg) rotateX(${-dy * maxRot}deg) scale3d(1.015,1.015,1.015)`;
-      if (thumbWrap) {
-        const shine = thumbWrap.querySelector('.proj-tilt-shine');
-        if (shine) {
-          const shineX = ((e.clientX - rect.left) / rect.width) * 100;
-          const shineY = ((e.clientY - rect.top) / rect.height) * 100;
-          shine.style.background = `radial-gradient(circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.22), rgba(255,255,255,0) 55%)`;
-          shine.style.opacity = '1';
-        }
-      }
+      contentDiv.style.transition = '';
+      contentDiv.style.transform = `perspective(900px) rotateY(${dx * maxRot}deg) rotateX(${-dy * maxRot}deg) scale3d(1.015,1.015,1.015)`;
     });
 
     item.addEventListener('mouseleave', () => {
-      item.style.transform = '';
-      const shine = item.querySelector('.proj-tilt-shine');
-      if (shine) shine.style.opacity = '0';
+      contentDiv.style.transition = 'transform 0.35s ease';
+      contentDiv.style.transform = '';
     });
   });
 })();
@@ -719,8 +728,6 @@ gameTabs.forEach(tab => {
 
   const KEY_MAP = {
     ArrowUp: 'UP', ArrowDown: 'DOWN', ArrowLeft: 'LEFT', ArrowRight: 'RIGHT',
-    w: 'UP', s: 'DOWN', a: 'LEFT', d: 'RIGHT',
-    W: 'UP', S: 'DOWN', A: 'LEFT', D: 'RIGHT',
   };
   const DIR_MAP = {
     UP:    { x:  0, y: -1 },

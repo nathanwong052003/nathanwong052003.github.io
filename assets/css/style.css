@@ -111,6 +111,7 @@ ul { list-style: none; }
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  padding-right: 0.2em;
 }
 
 /* ─────────── scroll reveal ─────────── */
@@ -573,7 +574,7 @@ ul { list-style: none; }
 #lightbox-prev { left: 24px; }
 #lightbox-next { right: 24px; }
 #lightbox-cap {
-  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
   font-size: 12px; color: rgba(245,231,212,0.55); letter-spacing: 0.08em;
   text-align: center; white-space: nowrap;
 }
