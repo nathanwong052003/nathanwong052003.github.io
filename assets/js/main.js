@@ -18,12 +18,13 @@ document.addEventListener('sections-loaded', function mainInit() {
     if (isDark) {
       root.setAttribute('data-theme', 'dark');
       document.body.setAttribute('data-theme', 'dark');
-      themeIcon.textContent = '⊙';
+      themeIcon.textContent = '☽';
     } else {
       root.removeAttribute('data-theme');
       document.body.removeAttribute('data-theme');
-      themeIcon.textContent = '◑';
+      themeIcon.textContent = '☀';
     }
+    if (themeToggle) themeToggle.setAttribute('aria-checked', isDark ? 'true' : 'false');
     localStorage.setItem('theme', theme);
   }
 
