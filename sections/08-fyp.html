@@ -1,0 +1,194 @@
+<!-- ============================================================
+     FYP — PROJECT NAIA
+     ============================================================ -->
+<section id="fyp" class="section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-label reveal">§ 05 — Final year project</div>
+      <h2 class="section-heading reveal">Project <em>NAIA.</em></h2>
+      <p class="reveal" style="font-family:var(--serif);font-size:17px;line-height:1.65;color:rgba(245,231,212,0.78);max-width:720px;margin-bottom:40px;">
+        A comprehensive passenger-flow analytics and forecasting system built for multi-line railway networks,
+        developed collaboratively with Hitachi Rail GTS and deployed on their ALVEA platform.
+      </p>
+      <div class="fyp-grid reveal">
+        <div>
+          <div class="fyp-code">
+            <div><span class="c"># naia / config.py</span></div>
+            <div>&nbsp;</div>
+            <div><span class="k">forecasting_models</span> = [</div>
+            <div>&nbsp; &nbsp;<span class="s">"ARIMA"</span>, <span class="s">"SARIMAX"</span>, <span class="s">"LightGBM"</span>,</div>
+            <div>]</div>
+            <div><span class="k">streaming</span> = <span class="s">"Apache Kafka"</span></div>
+            <div><span class="k">storage</span> &nbsp;= <span class="s">"ClickHouse (OLAP)"</span></div>
+            <div><span class="k">ci_cd</span> &nbsp; = <span class="s">"Jenkins"</span></div>
+            <div><span class="k">deploy</span> &nbsp;= <span class="s">"Kubernetes · ALVEA"</span></div>
+            <div><span class="k">improvement</span> = <span class="v">"+20%"</span> <span class="c"># scripting perf</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label" style="color:var(--peach);margin-bottom:18px;">// Key achievements</div>
+          <ul class="fyp-bullets">
+            <li>Researched regression models to forecast passenger flow for multi-line networks.</li>
+            <li>Improved scripting algorithm performance by 20% via ClickHouse batch processing with OLAP architecture.</li>
+            <li>Engineered a Kafka pipeline with producer–consumer schema registry for multi-format data ingestion.</li>
+            <li>Deployed to ALVEA platform using Jenkins CI/CD and Kubernetes, with emphasis on scalability.</li>
+            <li>Benchmarked ARIMA, SARIMAX and LightGBM; identified LightGBM as optimal for multi-line patterns.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="naia-diagram" id="naiaDiagram" title="Click to expand" aria-label="NAIA system architecture diagram">
+            <svg viewBox="0 0 730 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+              <!-- INPUT -->
+              <g class="node">
+                <rect x="5" y="10" width="100" height="34" fill="rgba(200,117,51,0.22)" stroke="rgba(200,117,51,0.5)" stroke-width="1"/>
+                <text x="55" y="24" text-anchor="middle" class="naia-label">Transactions</text>
+                <text x="55" y="37" text-anchor="middle" class="naia-sublabel">quarterhourly</text>
+              </g>
+              <g class="node">
+                <rect x="5" y="78" width="100" height="34" fill="rgba(138,58,26,0.22)" stroke="rgba(138,58,26,0.5)" stroke-width="1"/>
+                <text x="55" y="92" text-anchor="middle" class="naia-label">Daily Data</text>
+                <text x="55" y="105" text-anchor="middle" class="naia-sublabel">weather · events</text>
+              </g>
+              <g class="node">
+                <rect x="5" y="152" width="100" height="34" fill="rgba(100,40,20,0.18)" stroke="rgba(150,80,40,0.4)" stroke-width="1"/>
+                <text x="55" y="166" text-anchor="middle" class="naia-label">Static Data</text>
+                <text x="55" y="179" text-anchor="middle" class="naia-sublabel">stations · timing</text>
+              </g>
+
+              <!-- PRE-PROCESS -->
+              <g class="node">
+                <rect x="120" y="10" width="100" height="34" fill="rgba(200,117,51,0.22)" stroke="rgba(200,117,51,0.5)" stroke-width="1"/>
+                <text x="170" y="24" text-anchor="middle" class="naia-label">Trips / Agg.</text>
+                <text x="170" y="37" text-anchor="middle" class="naia-sublabel">entries &amp; exits</text>
+              </g>
+              <g class="node">
+                <rect x="120" y="78" width="100" height="34" fill="rgba(138,58,26,0.22)" stroke="rgba(138,58,26,0.5)" stroke-width="1"/>
+                <text x="170" y="92" text-anchor="middle" class="naia-label">Sched. Timetable</text>
+                <text x="170" y="105" text-anchor="middle" class="naia-sublabel">MTR timetable</text>
+              </g>
+
+              <!-- SHORT-TERM / DISTRIBUTION -->
+              <g class="node">
+                <rect x="244" y="0" width="110" height="46" fill="rgba(74,29,26,0.30)" stroke="rgba(200,117,51,0.5)" stroke-width="1"/>
+                <text x="299" y="15" text-anchor="middle" class="naia-label">Time Series</text>
+                <text x="299" y="28" text-anchor="middle" class="naia-sublabel">short-term pred.</text>
+                <text x="299" y="40" text-anchor="middle" class="naia-sublabel">ARIMA · SARIMAX</text>
+              </g>
+              <g class="node">
+                <rect x="244" y="66" width="110" height="40" fill="rgba(74,29,26,0.25)" stroke="rgba(200,117,51,0.4)" stroke-width="1"/>
+                <text x="299" y="81" text-anchor="middle" class="naia-label">Distribution</text>
+                <text x="299" y="96" text-anchor="middle" class="naia-sublabel">passenger spread</text>
+              </g>
+
+              <!-- CORE ENGINE -->
+              <g class="node">
+                <rect x="378" y="34" width="122" height="60" fill="rgba(74,29,26,0.42)" stroke="rgba(200,117,51,0.65)" stroke-width="1.5"/>
+                <text x="439" y="52" text-anchor="middle" class="naia-label">Scala PFA</text>
+                <text x="439" y="65" text-anchor="middle" class="naia-sublabel">passenger flow analysis</text>
+                <text x="439" y="79" text-anchor="middle" class="naia-sublabel">LightGBM forecast</text>
+              </g>
+              <g class="node">
+                <rect x="378" y="142" width="122" height="42" fill="rgba(138,58,26,0.28)" stroke="rgba(200,117,51,0.4)" stroke-width="1"/>
+                <text x="439" y="159" text-anchor="middle" class="naia-label">Prediction (MT)</text>
+                <text x="439" y="174" text-anchor="middle" class="naia-sublabel">mid-term forecast</text>
+              </g>
+
+              <!-- OUTPUT -->
+              <g class="node">
+                <rect x="524" y="4" width="200" height="72" fill="rgba(200,117,51,0.14)" stroke="rgba(245,200,156,0.4)" stroke-width="1"/>
+                <text x="624" y="20" text-anchor="middle" class="naia-label">KPIs · ALVEA</text>
+                <text x="624" y="33" text-anchor="middle" class="naia-sublabel">flow · missed trains</text>
+                <text x="624" y="46" text-anchor="middle" class="naia-sublabel">OD matrix · platform occ.</text>
+                <text x="624" y="59" text-anchor="middle" class="naia-sublabel">K8s / Jenkins</text>
+              </g>
+              <g class="node">
+                <rect x="524" y="142" width="200" height="42" fill="rgba(200,117,51,0.12)" stroke="rgba(245,200,156,0.35)" stroke-width="1"/>
+                <text x="624" y="159" text-anchor="middle" class="naia-label">Forecasts</text>
+                <text x="624" y="174" text-anchor="middle" class="naia-sublabel">OD · interchange dest.</text>
+              </g>
+
+              <!-- CONNECTOR LINES -->
+              <line x1="105" y1="27" x2="120" y2="27" stroke="rgba(200,117,51,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="105" y1="95" x2="120" y2="95" stroke="rgba(200,117,51,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="220" y1="22" x2="244" y2="18" stroke="rgba(200,117,51,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="220" y1="34" x2="244" y2="84" stroke="rgba(200,117,51,0.30)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="220" y1="27" x2="378" y2="60" stroke="rgba(200,117,51,0.18)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="299" y1="46" x2="299" y2="66" stroke="rgba(200,117,51,0.40)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="354" y1="84" x2="378" y2="72" stroke="rgba(200,117,51,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="354" y1="22" x2="378" y2="50" stroke="rgba(200,117,51,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="220" y1="95" x2="378" y2="72" stroke="rgba(138,58,26,0.40)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="105" y1="88" x2="378" y2="78" stroke="rgba(138,58,26,0.20)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="105" y1="167" x2="378" y2="84" stroke="rgba(100,40,20,0.30)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="500" y1="62" x2="524" y2="44" stroke="rgba(200,117,51,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="439" y1="94" x2="439" y2="142" stroke="rgba(200,117,51,0.40)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="500" y1="163" x2="524" y2="163" stroke="rgba(200,117,51,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+
+              <!-- ANIMATED PARTICLES -->
+              <path id="p-tt" d="M 105 27 L 120 27" fill="none"/>
+              <circle r="2.5" fill="var(--peach)">
+                <animateMotion dur="1.4s" repeatCount="indefinite" begin="0s"><mpath href="#p-tt"/></animateMotion>
+              </circle>
+
+              <path id="p-dt" d="M 105 95 L 120 95" fill="none"/>
+              <circle r="2.5" fill="var(--terracotta)">
+                <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.4s"><mpath href="#p-dt"/></animateMotion>
+              </circle>
+
+              <path id="p-ts" d="M 220 22 L 244 18" fill="none"/>
+              <circle r="2.5" fill="var(--peach)">
+                <animateMotion dur="1.7s" repeatCount="indefinite" begin="0.2s"><mpath href="#p-ts"/></animateMotion>
+              </circle>
+
+              <path id="p-td" d="M 220 34 L 244 84" fill="none"/>
+              <circle r="2" fill="var(--peach)" opacity="0.6">
+                <animateMotion dur="2s" repeatCount="indefinite" begin="0.6s"><mpath href="#p-td"/></animateMotion>
+              </circle>
+
+              <path id="p-ta" d="M 220 27 L 378 60" fill="none"/>
+              <circle r="2" fill="var(--peach)" opacity="0.5">
+                <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.1s"><mpath href="#p-ta"/></animateMotion>
+              </circle>
+
+              <path id="p-sd" d="M 299 46 L 299 66" fill="none"/>
+              <circle r="2.5" fill="var(--peach)">
+                <animateMotion dur="1.3s" repeatCount="indefinite" begin="0.8s"><mpath href="#p-sd"/></animateMotion>
+              </circle>
+
+              <path id="p-dp" d="M 354 84 L 378 72" fill="none"/>
+              <circle r="3" fill="var(--terracotta)">
+                <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.3s"><mpath href="#p-dp"/></animateMotion>
+              </circle>
+
+              <path id="p-sp" d="M 220 95 L 378 72" fill="none"/>
+              <circle r="2.5" fill="var(--terracotta)">
+                <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.7s"><mpath href="#p-sp"/></animateMotion>
+              </circle>
+
+              <path id="p-stat" d="M 105 167 L 378 84" fill="none"/>
+              <circle r="2" fill="rgba(150,80,40,0.9)">
+                <animateMotion dur="2.6s" repeatCount="indefinite" begin="1.2s"><mpath href="#p-stat"/></animateMotion>
+              </circle>
+
+              <path id="p-pk" d="M 500 62 L 524 44" fill="none"/>
+              <circle r="3" fill="rgba(245,200,156,0.9)">
+                <animateMotion dur="1.7s" repeatCount="indefinite" begin="0.1s"><mpath href="#p-pk"/></animateMotion>
+              </circle>
+
+              <path id="p-pm" d="M 439 94 L 439 142" fill="none"/>
+              <circle r="2.5" fill="var(--terracotta)">
+                <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.9s"><mpath href="#p-pm"/></animateMotion>
+              </circle>
+
+              <path id="p-pf" d="M 500 163 L 524 163" fill="none"/>
+              <circle r="2.5" fill="rgba(245,200,156,0.8)">
+                <animateMotion dur="1.4s" repeatCount="indefinite" begin="0.5s"><mpath href="#p-pf"/></animateMotion>
+              </circle>
+            </svg>
+          </div>
+      <div class="fyp-poster" id="fypPoster" title="Click to expand">
+        <img src="https://raw.githubusercontent.com/nathanwong052003/nathanwong052003.github.io/main/images/fyp_poster.jpg" alt="Project NAIA poster" />
+      </div>
+    </div>
+  </div>
+</section>
