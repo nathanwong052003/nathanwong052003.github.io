@@ -1,0 +1,53 @@
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">~/nwsh &mdash; personal site &mdash; 2026</div>
+      <h1 class="hero-title">
+        Nathan Wong <em>Shih Hao</em><br>
+        — computer scientist,<br>
+        <em>data engineer</em>,<br>
+        occasional photographer.
+      </h1>
+      <div class="hero-meta">
+        <span>HKUST &middot; BEng CS</span>
+        <span>Capgemini &middot; Technology Consultant</span>
+        <span>Hong Kong</span>
+        <span>EN &middot; ID &middot; 中文</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="term-window" id="termWindow">
+        <div class="term-titlebar">
+          <div class="term-dot" style="background:#ff5f57;"></div>
+          <div class="term-dot" style="background:#febc2e;"></div>
+          <div class="term-dot" style="background:#28c840;"></div>
+          <div class="term-title">nathan@nwsh:~</div>
+        </div>
+        <div class="term-body" id="termBody">
+          <div class="term-line t-comment"># welcome. type a command or click one below.</div>
+          <div class="term-line t-comment"># try: help &nbsp;about &nbsp;work &nbsp;skills &nbsp;contact</div>
+          <div class="term-line">&nbsp;</div>
+        </div>
+        <div style="padding:0 20px 16px; border-top:1px solid rgba(200,117,51,0.14); margin-top:4px;">
+          <div class="term-prompt-row" style="padding-top:12px;">
+            <span class="t-prompt">nathan@nwsh</span><span class="t-sym">:</span><span class="t-path">~</span><span class="t-sym">$ &nbsp;</span>
+            <input id="termInput" class="term-input" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="terminal input" />
+          </div>
+        </div>
+      </div>
+      <div class="term-hints" id="termHints">
+        <span style="color:var(--muted);">quick commands →</span>
+        <button class="term-key" data-cmd="help">help</button>
+        <button class="term-key" data-cmd="about">about</button>
+        <button class="term-key" data-cmd="work">work</button>
+        <button class="term-key" data-cmd="skills">skills</button>
+        <button class="term-key" data-cmd="contact">contact</button>
+        <button class="term-key" data-cmd="clear">clear</button>
+      </div>
+    </div>
+  </div>
+</section>

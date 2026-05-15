@@ -1,0 +1,107 @@
+<!-- ============================================================
+     PLAY — GAMES
+     ============================================================ -->
+<section id="play" class="section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-label reveal">§ 08 — playground</div>
+      <h2 class="section-heading reveal">Let's <em>play.</em></h2>
+      <p class="play-intro reveal">A few interactive experiments. Keyboard + mouse.</p>
+
+      <!-- Tab bar -->
+      <div class="game-tabs" role="tablist">
+        <button class="game-tab active" data-tab="snake" role="tab" aria-selected="true">snake_pipeline</button>
+        <button class="game-tab" data-tab="life" role="tab" aria-selected="false">conways_life</button>
+        <button class="game-tab" data-tab="type" role="tab" aria-selected="false">type_speed</button>
+      </div>
+
+      <!-- ─────────────── PANEL: Snake ─────────────── -->
+      <div id="panel-snake" class="game-panel active">
+        <div class="game-header">
+          <div class="game-meta">
+            <span>throughput: <strong id="snake-score">0 MB/s</strong></span>
+            <span>length: <strong id="snake-length">1</strong></span>
+          </div>
+          <div class="game-controls-top">
+            <button id="snake-start" class="game-btn">run_pipeline()</button>
+            <button id="snake-pause" class="game-btn" disabled>pause()</button>
+          </div>
+        </div>
+        <div class="game-canvas-wrap">
+          <canvas id="snake-canvas" aria-label="Snake Pipeline game"></canvas>
+          <div id="snake-overlay" class="game-overlay">
+            <div class="game-overlay-content">
+              <div id="snake-overlay-title" class="game-overlay-title">pipeline.run()</div>
+              <div id="snake-overlay-sub" class="game-overlay-sub">press run_pipeline() to start</div>
+              <button id="snake-restart" class="game-btn">restart</button>
+            </div>
+          </div>
+        </div>
+        <div class="game-hint">← ↑ → ↓ or WASD to steer</div>
+        <!-- Mobile D-pad -->
+        <div class="snake-dpad" id="snake-dpad">
+          <div class="snake-dpad-row">
+            <button class="dpad-btn" data-dir="UP">▲</button>
+          </div>
+          <div class="snake-dpad-row">
+            <button class="dpad-btn" data-dir="LEFT">◄</button>
+            <button class="dpad-btn" data-dir="DOWN">▼</button>
+            <button class="dpad-btn" data-dir="RIGHT">►</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────── PANEL: Life ─────────────── -->
+      <div id="panel-life" class="game-panel">
+        <div class="game-header">
+          <div class="game-meta">
+            <span>gen: <strong id="life-gen">0</strong></span>
+            <span>cells: <strong id="life-cells">0</strong></span>
+          </div>
+          <div class="game-controls-top">
+            <button id="life-play" class="game-btn">play()</button>
+            <button id="life-step" class="game-btn">step()</button>
+            <button id="life-clear" class="game-btn">clear()</button>
+            <button id="life-random" class="game-btn">random()</button>
+          </div>
+        </div>
+        <div class="life-presets">
+          <span class="life-preset-label">presets:</span>
+          <button class="game-btn-sm" data-preset="glider">glider</button>
+          <button class="game-btn-sm" data-preset="pulsar">pulsar</button>
+          <button class="game-btn-sm" data-preset="blinker">blinker</button>
+          <button class="game-btn-sm" data-preset="gun">glider gun</button>
+        </div>
+        <canvas id="life-canvas" width="600" height="360" aria-label="Conway's Game of Life"></canvas>
+        <div class="game-hint">
+          click / drag to toggle cells · speed:
+          <button class="game-btn-sm" id="life-speed">fast</button>
+        </div>
+      </div>
+
+      <!-- ─────────────── PANEL: Typing ─────────────── -->
+      <div id="panel-type" class="game-panel">
+        <div class="game-header">
+          <div class="game-meta">
+            <span>wpm: <strong id="type-wpm">0</strong></span>
+            <span>accuracy: <strong id="type-acc">100%</strong></span>
+            <span>time: <strong id="type-timer">60s</strong></span>
+          </div>
+          <div class="game-controls-top">
+            <button id="type-reset" class="game-btn">new_snippet()</button>
+          </div>
+        </div>
+        <div class="type-snippet-wrap">
+          <div id="type-snippet" class="type-snippet"></div>
+        </div>
+        <textarea id="type-input" class="type-input" placeholder="start typing to begin..." spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+        <div class="type-result hidden" id="type-result">
+          <div class="type-result-title">completed!</div>
+          <div id="type-result-stats" class="type-result-stats"></div>
+          <button id="type-next" class="game-btn">next_snippet()</button>
+        </div>
+      </div>
+
+    </div><!-- /section-inner -->
+  </div><!-- /container -->
+</section>

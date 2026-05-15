@@ -103,9 +103,13 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .game-hint { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; margin-top: 10px; }
 
 /* ── canvas wrapper ── */
+.game-canvas-wrap {
+  position: relative;
+}
 #snake-canvas, #life-canvas {
   display: block;
-  max-width: 100%;
+  width: 100%;
+  height: auto;
   border-radius: 6px;
   border: 1px solid rgba(200,117,51,0.2);
 }
@@ -117,7 +121,6 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   display: flex; align-items: center; justify-content: center;
   border-radius: 6px; backdrop-filter: blur(4px);
 }
-.game-canvas-wrap { position: relative; }
 .game-overlay-content { text-align: center; }
 .game-overlay-title { font-family: var(--serif); font-size: 28px; color: var(--peach); margin-bottom: 8px; }
 .game-overlay-sub { font-size: 12px; color: var(--muted); margin-bottom: 18px; letter-spacing: 0.08em; }
@@ -215,7 +218,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
           </div>
         </div>
         <div class="game-canvas-wrap">
-          <canvas id="snake-canvas" width="600" height="360" aria-label="Snake Pipeline game"></canvas>
+          <canvas id="snake-canvas" aria-label="Snake Pipeline game"></canvas>
           <div id="snake-overlay" class="game-overlay">
             <div class="game-overlay-content">
               <div id="snake-overlay-title" class="game-overlay-title">pipeline.run()</div>
@@ -259,7 +262,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
           <button class="game-btn-sm" data-preset="blinker">blinker</button>
           <button class="game-btn-sm" data-preset="gun">glider gun</button>
         </div>
-        <canvas id="life-canvas" width="600" height="360" aria-label="Conway's Game of Life"></canvas>
+        <canvas id="life-canvas" aria-label="Conway's Game of Life"></canvas>
         <div class="game-hint">
           click / drag to toggle cells · speed:
           <button class="game-btn-sm" id="life-speed">fast</button>
@@ -328,9 +331,23 @@ tabs.forEach(tab => {
 (function SnakePipeline() {
   const canvas = document.getElementById('snake-canvas');
   const ctx    = canvas.getContext('2d');
-  const COLS   = 30;
-  const ROWS   = 18;
-  const CELL   = 20; // 600/30 = 20, 360/18 = 20
+  const ASPECT = 5 / 3; // width / height
+  let COLS, ROWS, CELL;
+
+  function resizeCanvas() {
+    const wrap = canvas.parentElement;
+    const w    = wrap.clientWidth;
+    const h    = Math.round(w / ASPECT);
+    // Set internal resolution (CSS will scale via max-width:100%)
+    canvas.width  = w;
+    canvas.height = h;
+    // Recalculate grid — aim for CELL ≈ 20px
+    CELL  = Math.floor(w / 30);
+    COLS  = Math.floor(w / CELL);
+    ROWS  = Math.floor(h / CELL);
+    // Re-draw if game already initialised
+    if (typeof snake !== 'undefined') drawFrame();
+  }
 
   const scoreEl  = document.getElementById('snake-score');
   const lengthEl = document.getElementById('snake-length');
@@ -541,6 +558,8 @@ tabs.forEach(tab => {
   btnPause.addEventListener('click', togglePause);
 
   // Initial draw
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
   initGame();
   overlay.style.display = 'flex';
   oTitle.textContent = 'pipeline.run()';
@@ -554,9 +573,21 @@ tabs.forEach(tab => {
 (function ConwaysLife() {
   const canvas  = document.getElementById('life-canvas');
   const ctx     = canvas.getContext('2d');
-  const COLS    = 50;  // 600/12
-  const ROWS    = 30;  // 360/12
-  const CELL    = 12;
+  const ASPECT  = 5 / 3;
+  let COLS, ROWS, CELL;
+
+  function resizeCanvas() {
+    const wrap = canvas.parentElement || canvas.closest('.game-canvas-wrap') || canvas;
+    const w    = wrap.clientWidth || canvas.parentElement.clientWidth;
+    const h    = Math.round(w / ASPECT);
+    canvas.width  = w;
+    canvas.height = h;
+    // Aim for CELL ≈ 12px for Life
+    CELL  = Math.max(6, Math.floor(w / 50));
+    COLS  = Math.floor(w / CELL);
+    ROWS  = Math.floor(h / CELL);
+    if (typeof grid !== 'undefined') drawFrame();
+  }
 
   const genEl   = document.getElementById('life-gen');
   const cellsEl = document.getElementById('life-cells');
@@ -811,6 +842,8 @@ tabs.forEach(tab => {
   });
 
   // Init
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
   initGrid();
 })();
 
