@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nathan Wong — Cinematic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Outfit:ital,wght@0,200;0,300;0,400;0,600;0,800;1,200;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0605;
+  --bg-mix: #1a0c0a;
+  --text: #fdf2f0;
+  --text-dim: #cca9a3;
+  --gold: #f59e0b;
+  --ember: #ea580c;
+  --crimson: #be123c;
+  --brand-mono: 'JetBrains Mono', monospace;
+  --brand-sans: 'Outfit', sans-serif;
+  --glass-bg: rgba(40, 15, 10, 0.4);
+  --glass-border: rgba(234, 88, 12, 0.2);
+}
+html { scroll-behavior: smooth; font-size: 16px; background-color: var(--bg); }
+body {
+  font-family: var(--brand-sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* Base utilities */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 4vw; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* Fixed Noise Texture Overlay */
+.noise {
+  position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  opacity: 0.04; mix-blend-mode: overlay;
+}
+
+/* Gradient Mesh Background */
+.mesh-bg {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background: var(--bg); overflow: hidden;
+}
+.mesh-blob {
+  position: absolute; border-radius: 50%; filter: blur(120px);
+  will-change: transform; transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mesh-blob-1 { width: 80vw; height: 80vh; background: rgba(234, 88, 12, 0.15); top: -20vh; left: -20vw; animation: drift 20s infinite alternate ease-in-out; }
+.mesh-blob-2 { width: 60vw; height: 60vh; background: rgba(190, 18, 60, 0.15); bottom: -10vh; right: -10vw; animation: drift 25s infinite alternate-reverse ease-in-out; }
+.mesh-blob-3 { width: 50vw; height: 50vw; background: rgba(245, 158, 11, 0.1); top: 30vh; left: 40vw; animation: drift 30s infinite alternate ease-in-out; }
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { transform: translate(10vw, 15vh) scale(1.1) rotate(20deg); }
+}
+
+/* Global Nav */
+.nav-bar {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 4vw; mix-blend-mode: difference;
+}
+.nav-logo { font-family: var(--brand-mono); font-size: 0.9rem; font-weight: 500; color: #fff; letter-spacing: 0.1em; }
+.nav-links { display: flex; gap: 2rem; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.7); }
+.nav-links a:hover { color: #fff; }
+
+/* Hero Section */
+.hero {
+  position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  padding-top: 10vh; z-index: 10;
+}
+.hero-content {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%;
+}
+.hero-subtitle { font-family: var(--brand-mono); text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.8rem; color: var(--gold); margin-bottom: 2rem; opacity: 0; transform: translateY(20px); animation: fadeUp 1s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.hero-title {
+  font-size: clamp(4rem, 8vw, 8rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 2rem;
+  opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-title .italic { font-style: italic; font-weight: 200; color: var(--ember); }
+.hero-desc {
+  font-size: 1.2rem; line-height: 1.6; color: var(--text-dim); max-width: 450px; font-weight: 300;
+  opacity: 0; transform: translateY(20px); animation: fadeUp 1s 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Enhanced 3D Terminal Widget */
+.hero-terminal-wrap {
+  perspective: 1000px; width: 100%; height: 100%; position: relative;
+  opacity: 0; transform: translateY(40px); animation: fadeUp 1s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.terminal-3d {
+  background: var(--glass-bg); backdrop-filter: blur(40px);
+  border: 1px solid var(--glass-border); border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 2px 2px rgba(255,255,255,0.1);
+  transform-style: preserve-3d; transition: transform 0.1s ease-out;
+  transform: rotateX(5deg) rotateY(-5deg); overflow: hidden;
+}
+.term-header {
+  padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center;
+}
+.term-dots { display: flex; gap: 8px; }
+.term-dot { width: 12px; height: 12px; border-radius: 50%; opacity: 0.6; }
+.term-dot:nth-child(1) { background: #ff5f57; } .term-dot:nth-child(2) { background: #febc2e; } .term-dot:nth-child(3) { background: #28c840; }
+.term-title { margin-left: 1rem; font-family: var(--brand-mono); font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+.term-body { padding: 1.5rem; height: 300px; font-family: var(--brand-mono); font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+.term-input-line { display: flex; margin-top: 1rem; color: var(--gold); }
+.term-input { background: none; border: none; outline: none; color: #fff; font-family: var(--brand-mono); font-size: 0.85rem; width: 100%; margin-left: 0.5rem; }
+
+/* Chapter / Section Styles */
+.chapter { padding: 15vh 0; position: relative; z-index: 10; }
+.chapter-header { margin-bottom: 6rem; }
+.chapter-num { font-family: var(--brand-mono); font-size: 1rem; color: var(--ember); letter-spacing: 0.2em; display: block; margin-bottom: 1rem; }
+.chapter-title { font-size: clamp(3rem, 6vw, 6rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+.chapter-title i { font-weight: 200; color: var(--text-dim); }
+
+/* Reveal Animations */
+.scr-rev { opacity: 0; transform: translateY(80px) scale(0.98); filter: blur(4px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.scr-rev.is-visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+.scr-rev-stagger > * { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+.scr-rev-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+
+/* Cinematic Grid for Work */
+.cine-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
+.cine-item { position: relative; grid-column: span 6; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; cursor: pointer; }
+.cine-item:nth-child(2n) { grid-column: span 6; transform: translateY(10vh); }
+.cine-item:nth-child(3) { grid-column: span 12; aspect-ratio: 21/9; margin-top: 5vh; }
+.cine-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s cubic-bezier(0.16,1,0.3,1); filter: saturate(0.6) contrast(1.2); }
+.cine-item:hover .cine-img { transform: scale(1.05); filter: saturate(1) contrast(1); }
+.cine-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%); padding: 2rem; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: opacity 0.5s; }
+.cine-item:hover .cine-overlay { opacity: 1; }
+.cine-overlay h3 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 600; }
+.cine-overlay p { font-family: var(--brand-mono); color: var(--ember); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .term-body { height: 200px; }
+  .nav-links { display: none; }
+  .cine-item, .cine-item:nth-child(2n), .cine-item:nth-child(3) { grid-column: span 12; transform: none; margin-top: 0; aspect-ratio: 16/9; }
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="mesh-bg">
+  <div class="mesh-blob mesh-blob-1"></div>
+  <div class="mesh-blob mesh-blob-2"></div>
+  <div class="mesh-blob mesh-blob-3"></div>
+</div>
+
+<nav class="nav-bar">
+  <div class="nav-logo">NWSH.DEV</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero container">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-subtitle">System Status: Active</div>
+      <h1 class="hero-title">Nathan<br><span class="italic">Wong.</span></h1>
+      <p class="hero-desc">Data &amp; AI Engineer based in Hong Kong. Building resilient systems, evaluating language models, and pursuing cinematic aesthetics.</p>
+    </div>
+    <div class="hero-terminal-wrap">
+      <div class="terminal-3d" id="heroTerm">
+        <div class="term-header">
+          <div class="term-dots">
+            <div class="term-dot"></div><div class="term-dot"></div><div class="term-dot"></div>
+          </div>
+          <div class="term-title">nathan@nwsh-core:~</div>
+        </div>
+        <div class="term-body">
+          <div>Authenticating session... OK.</div>
+          <div style="color: #cca9a3; margin-top:0.5rem;">[Module] AI Engine loaded.</div>
+          <div style="color: #cca9a3;">[Module] Edge Deployment ready.</div>
+          <div style="margin-top:1rem;">Type <span style="color:var(--gold);">help</span> to view available commands.</div>
+          <div class="term-input-line">
+            ~$ <input type="text" class="term-input" autofocus spellcheck="false" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="chapter container">
+  <div class="chapter-header scr-rev">
+    <span class="chapter-num">/01</span>
+    <h2 class="chapter-title">Selected <i>Work</i></h2>
+  </div>
+  <div class="cine-grid">
+    <div class="cine-item scr-rev">
+      <img src="https://raw.githubusercontent.com/nathanwong052003/nathanwong052003.github.io/main/images/banner.jpg" class="cine-img" alt="Project 1">
+      <div class="cine-overlay">
+        <h3>Project NAIA</h3>
+        <p>AI Engine &bull; LLM Eval</p>
+      </div>
+    </div>
+    <div class="cine-item scr-rev" style="transition-delay: 0.2s;">
+      <img src="https://raw.githubusercontent.com/nathanwong052003/nathanwong052003.github.io/main/images/banner.jpg" class="cine-img" style="filter: hue-rotate(40deg) saturate(0.6);" alt="Project 2">
+      <div class="cine-overlay">
+        <h3>Edge AI Deployment</h3>
+        <p>Kubernetes &bull; Kafka</p>
+      </div>
+    </div>
+    <div class="cine-item scr-rev">
+      <img src="https://raw.githubusercontent.com/nathanwong052003/nathanwong052003.github.io/main/images/banner.jpg" class="cine-img" style="filter: sepia(1) saturate(0.5) hue-rotate(-20deg);" alt="Project 3">
+      <div class="cine-overlay">
+        <h3>Claims Pipeline</h3>
+        <p>Data Systems &bull; Analytics</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="chapter container">
+  <div class="chapter-header scr-rev">
+    <span class="chapter-num">/02</span>
+    <h2 class="chapter-title">The <i>Details</i></h2>
+  </div>
+  <div class="scr-rev" style="max-width: 800px; font-size: 1.5rem; line-height: 1.6; color: var(--text-dim); font-weight: 300;">
+    <p style="margin-bottom: 2rem;">I engineer connections between large-scale data and practical outcomes. Currently at Capgemini Hong Kong, driving edge AI deployments and robust evaluation frameworks for language models.</p>
+    <p>Beyond the IDE, I focus on capturing the juxtaposition of deeply urban spaces and vast natural landscapes through photography.</p>
+  </div>
+</section>
+
+<script>
+// Scroll Reveal Observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      // Optional: unobserve to animate only once
+      // observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+document.querySelectorAll('.scr-rev').forEach(el => observer.observe(el));
+
+// 3D Terminal Mouse Tilt
+const termWrap = document.querySelector('.hero-terminal-wrap');
+const term3d = document.getElementById('heroTerm');
+
+if(termWrap && term3d) {
+  termWrap.addEventListener('mousemove', (e) => {
+    const rect = termWrap.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    
+    term3d.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+  
+  termWrap.addEventListener('mouseleave', () => {
+    term3d.style.transform = `rotateX(5deg) rotateY(-5deg)`;
+  });
+}
+</script>
+</body>
+</html>
