@@ -5,6 +5,39 @@
 /* ─────────── wait for sections to be loaded ─────────── */
 document.addEventListener('sections-loaded', function mainInit() {
 
+/* ─────────── dark mode toggle ─────────── */
+(function () {
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  const savedTheme = localStorage.getItem('theme') || 'light';
+
+  function setTheme(theme) {
+    const isDark = theme === 'dark';
+    if (isDark) {
+      root.setAttribute('data-theme', 'dark');
+      document.body.setAttribute('data-theme', 'dark');
+      themeIcon.textContent = '⊙';
+    } else {
+      root.removeAttribute('data-theme');
+      document.body.removeAttribute('data-theme');
+      themeIcon.textContent = '◑';
+    }
+    localStorage.setItem('theme', theme);
+  }
+
+  setTheme(savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    });
+  }
+})();
+
 /* ─────────── particle dot grid (signature effect) ─────────── */
 (function () {
   const canvas = document.getElementById('particles');
