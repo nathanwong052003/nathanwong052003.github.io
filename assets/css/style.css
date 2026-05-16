@@ -176,6 +176,10 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
 }
+.theme-toggle--mobile { display: none; }
+@media (max-width: 720px) {
+  .theme-toggle--mobile { display: flex; }
+}
 .toggle-track {
   position: relative;
   width: 48px;
@@ -215,6 +219,7 @@ ul { list-style: none; }
 @media (max-width: 720px) {
   .nav-links { display: none; }
   .nav-mobile-btn { display: block; }
+  .theme-toggle--desktop { display: none; }
   .nav-mobile {
     display: none; flex-direction: column;
     background: var(--cream); border-top: 1px dashed var(--rule-d);
@@ -222,6 +227,10 @@ ul { list-style: none; }
   }
   .nav-mobile.open { display: flex; }
   .nav-mobile a { padding: 8px 0; font-size: 13px; color: var(--muted); border-bottom: 1px dashed var(--rule); }
+  .nav-mobile-theme {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px; margin-top: 12px; border-top: 1px dashed var(--rule);
+  }
 }
 
 /* ─────────── hero ─────────── */

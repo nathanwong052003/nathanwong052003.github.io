@@ -8,8 +8,10 @@ document.addEventListener('sections-loaded', function mainInit() {
 /* ─────────── dark mode toggle ─────────── */
 (function () {
   const root = document.documentElement;
-  const themeToggle = document.getElementById('themeToggle');
+  const themeToggleDesktop = document.getElementById('themeToggle');
+  const themeToggleMobile = document.getElementById('themeToggleMobile');
   const themeIcon = document.getElementById('themeIcon');
+  const themeIconMobile = document.getElementById('themeIconMobile');
 
   const savedTheme = localStorage.getItem('theme') || 'light';
 
@@ -18,24 +20,32 @@ document.addEventListener('sections-loaded', function mainInit() {
     if (isDark) {
       root.setAttribute('data-theme', 'dark');
       document.body.setAttribute('data-theme', 'dark');
-      themeIcon.textContent = '☽';
+      if (themeIcon) themeIcon.textContent = '☽';
+      if (themeIconMobile) themeIconMobile.textContent = '☽';
     } else {
       root.removeAttribute('data-theme');
       document.body.removeAttribute('data-theme');
-      themeIcon.textContent = '☀';
+      if (themeIcon) themeIcon.textContent = '☀';
+      if (themeIconMobile) themeIconMobile.textContent = '☀';
     }
-    if (themeToggle) themeToggle.setAttribute('aria-checked', isDark ? 'true' : 'false');
+    if (themeToggleDesktop) themeToggleDesktop.setAttribute('aria-checked', isDark ? 'true' : 'false');
+    if (themeToggleMobile) themeToggleMobile.setAttribute('aria-checked', isDark ? 'true' : 'false');
     localStorage.setItem('theme', theme);
   }
 
   setTheme(savedTheme);
 
-  if (themeToggle) {
-    themeToggle.addEventListener('click', function() {
-      const currentTheme = localStorage.getItem('theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      setTheme(newTheme);
-    });
+  function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  }
+
+  if (themeToggleDesktop) {
+    themeToggleDesktop.addEventListener('click', toggleTheme);
+  }
+  if (themeToggleMobile) {
+    themeToggleMobile.addEventListener('click', toggleTheme);
   }
 })();
 
