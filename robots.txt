@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /unused/
+
+Sitemap: https://nathanwong052003.github.io/sitemap.xml

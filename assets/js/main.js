@@ -1071,11 +1071,16 @@ gameTabs.forEach(tab => {
   const btnNext   = document.getElementById('type-next');
 
   const SNIPPETS = [
-    `df.groupby('station')\n  .agg({'passenger_count': 'sum', 'avg_wait': 'mean'})\n  .sort_values('passenger_count', ascending=False)\n  .reset_index()`,
-    `producer = KafkaProducer(\n  bootstrap_servers=['localhost:9092'],\n  value_serializer=lambda v: json.dumps(v).encode('utf-8')\n)`,
-    `CREATE TABLE passenger_flow (\n  station_id UInt32,\n  ts DateTime,\n  count UInt64,\n  line String\n) ENGINE = MergeTree()\nORDER BY (station_id, ts);`,
-    `model = LGBMRegressor(\n  n_estimators=500,\n  learning_rate=0.05,\n  max_depth=6,\n  num_leaves=31\n)\nmodel.fit(X_train, y_train)`,
-    `kubectl apply -f deployment.yaml\nkubectl rollout status deployment/naia\nkubectl get pods -n production`,
+    'The quick brown fox jumps over the lazy dog while the sun sets slowly behind the mountains. Birds chirp in the distance as the evening breeze carries the scent of fresh flowers.',
+    'Learning to type faster is a skill that improves with practice and dedication. The more you practice typing, the more your fingers will remember the keyboard layout and move with greater speed and accuracy.',
+    'Technology has transformed the way we communicate and work together. From smartphones to computers, we now have tools that connect us instantly to people around the world no matter where we are.',
+    'The greatest achievements in life often come from the smallest efforts and the most persistent determination. Success requires patience, hard work, and the willingness to learn from mistakes and failures along the way.',
+    'Nature has always been a source of inspiration for artists, writers, and thinkers throughout history. Mountains, forests, oceans, and deserts all hold mysteries and beauty that have captivated human imagination for countless generations.',
+    'Reading books opens doors to new worlds and ideas that might never have been discovered otherwise. Every page turned is an adventure into someone else\'s mind and imagination, expanding our understanding of humanity and the universe around us.',
+    'The art of conversation is becoming increasingly rare in our digital age where people prefer texting to talking face to face. Yet real human connection requires the warmth and nuance that only spoken words can truly provide.',
+    'Education is the most powerful tool we have to change the world and improve lives across communities. Knowledge empowers individuals to make better decisions and contribute meaningfully to society in ways both big and small.',
+    'Travel experiences teach us more about the world and ourselves than any book could ever do. Whether exploring distant countries or nearby towns, each journey offers unique perspectives and memories that last a lifetime.',
+    'The power of creativity lies in the ability to see connections between seemingly unrelated ideas. Innovation happens when someone combines existing concepts in a new way to create something that has never existed before.',
   ];
 
   let currentSnippet = '';
