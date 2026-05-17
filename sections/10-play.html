@@ -13,6 +13,7 @@
         <button class="game-tab active" data-tab="snake" role="tab" aria-selected="true">snake_pipeline</button>
         <button class="game-tab" data-tab="life" role="tab" aria-selected="false">conways_life</button>
         <button class="game-tab" data-tab="type" role="tab" aria-selected="false">type_speed</button>
+        <button class="game-tab" data-tab="blackjack" role="tab" aria-selected="false">blackjack</button>
       </div>
 
       <!-- ─────────────── PANEL: Snake ─────────────── -->
@@ -100,6 +101,45 @@
           <div id="type-result-stats" class="type-result-stats"></div>
           <button id="type-next" class="game-btn">next_snippet()</button>
         </div>
+      </div>
+
+      <!-- ─────────────── PANEL: Blackjack ─────────────── -->
+      <div id="panel-blackjack" class="game-panel">
+        <div class="bj-stats">
+          <span>balance: <strong id="bj-balance">$100</strong></span>
+          <span>bet: <strong id="bj-bet">$0</strong></span>
+          <span>hand: <strong id="bj-hand-val">—</strong></span>
+        </div>
+        <div class="bj-table">
+          <div class="bj-area">
+            <div class="bj-area-label">dealer <span id="bj-dealer-val"></span></div>
+            <div id="bj-dealer-hand" class="bj-hand"></div>
+          </div>
+          <div class="bj-divider"></div>
+          <div class="bj-area">
+            <div class="bj-area-label">player <span id="bj-player-val"></span></div>
+            <div id="bj-player-hand" class="bj-hand"></div>
+          </div>
+        </div>
+        <div id="bj-message" class="bj-message">place a bet and deal()</div>
+        <div class="bj-controls">
+          <div class="bj-controls-row">
+            <button id="bj-deal" class="game-btn">deal()</button>
+            <button id="bj-hit" class="game-btn" disabled>hit()</button>
+            <button id="bj-stand" class="game-btn" disabled>stand()</button>
+            <button id="bj-double" class="game-btn" disabled>double()</button>
+          </div>
+          <div class="bj-controls-row">
+            <span class="life-preset-label">bet:</span>
+            <button class="game-btn-sm bj-chip" data-amount="5">+$5</button>
+            <button class="game-btn-sm bj-chip" data-amount="10">+$10</button>
+            <button class="game-btn-sm bj-chip" data-amount="25">+$25</button>
+            <button class="game-btn-sm bj-chip" data-amount="50">+$50</button>
+            <button class="game-btn-sm" id="bj-clear-bet">clear_bet()</button>
+            <button class="game-btn-sm" id="bj-reset">reset_bank()</button>
+          </div>
+        </div>
+        <div class="game-hint bj-hint">hit 21 to win · dealer stands on 17 · blackjack pays 3:2</div>
       </div>
 
     </div><!-- /section-inner -->

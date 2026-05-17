@@ -1222,6 +1222,292 @@ gameTabs.forEach(tab => {
   initTest();
 })();
 
+/* ══════════════════════════════════════════════════════
+   GAME 4 — BLACKJACK
+   ══════════════════════════════════════════════════════ */
+(function Blackjack() {
+  const balanceEl   = document.getElementById('bj-balance');
+  const betEl       = document.getElementById('bj-bet');
+  const handValEl   = document.getElementById('bj-hand-val');
+  const dealerValEl = document.getElementById('bj-dealer-val');
+  const playerValEl = document.getElementById('bj-player-val');
+  const dealerHand  = document.getElementById('bj-dealer-hand');
+  const playerHand  = document.getElementById('bj-player-hand');
+  const messageEl   = document.getElementById('bj-message');
+  const btnDeal     = document.getElementById('bj-deal');
+  const btnHit      = document.getElementById('bj-hit');
+  const btnStand    = document.getElementById('bj-stand');
+  const btnDouble   = document.getElementById('bj-double');
+  const btnReset    = document.getElementById('bj-reset');
+  const btnClearBet = document.getElementById('bj-clear-bet');
+
+  if (!balanceEl) return;
+
+  const SUITS     = ['♠', '♥', '♦', '♣'];
+  const RANKS     = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  const RED_SUITS = new Set(['♥', '♦']);
+  const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DEAL_MS   = REDUCED ? 0 : 160;
+  const ANIM_MS   = REDUCED ? 0 : 220;
+
+  let balance = 100, bet = 0, deck = [];
+  let playerCards = [], dealerCards = [];
+  // dealerEls[i] tracks the DOM node for dealerCards[i]; index 0 = hole card, index 1 = up card
+  let dealerEls = [], playerEls = [];
+  let gameActive = false;
+
+  const sleep = ms => ms > 0 ? new Promise(r => setTimeout(r, ms)) : Promise.resolve();
+
+  function buildDeck() {
+    deck = [];
+    for (const suit of SUITS) for (const rank of RANKS) deck.push({ rank, suit });
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+  }
+
+  function drawCard() {
+    if (deck.length < 10) buildDeck();
+    return deck.pop();
+  }
+
+  function handTotal(cards) {
+    let total = 0, aces = 0;
+    for (const c of cards) {
+      if (c.rank === 'A') { total += 11; aces++; }
+      else if (['J','Q','K'].includes(c.rank)) total += 10;
+      else total += parseInt(c.rank, 10);
+    }
+    while (total > 21 && aces-- > 0) total -= 10;
+    return total;
+  }
+
+  function makeCardEl(card, hidden) {
+    const el = document.createElement('div');
+    el.className = 'bj-card' + (hidden ? ' back' : RED_SUITS.has(card.suit) ? ' red' : '');
+    if (!hidden) {
+      const r = document.createElement('div'); r.className = 'bj-card-rank'; r.textContent = card.rank;
+      const s = document.createElement('div'); s.className = 'bj-card-suit'; s.textContent = card.suit;
+      el.appendChild(r); el.appendChild(s);
+    }
+    return el;
+  }
+
+  function appendCard(container, card, hidden, delayMs) {
+    const el = makeCardEl(card, hidden);
+    if (!REDUCED) {
+      if (delayMs) el.style.animationDelay = delayMs + 'ms';
+      el.classList.add('bj-deal-in');
+    }
+    container.appendChild(el);
+    return el;
+  }
+
+  function flipCard(el, card) {
+    if (REDUCED) {
+      el.classList.remove('back');
+      if (RED_SUITS.has(card.suit)) el.classList.add('red');
+      const r = document.createElement('div'); r.className = 'bj-card-rank'; r.textContent = card.rank;
+      const s = document.createElement('div'); s.className = 'bj-card-suit'; s.textContent = card.suit;
+      el.appendChild(r); el.appendChild(s);
+      return Promise.resolve();
+    }
+    return new Promise(resolve => {
+      el.classList.add('bj-flip-out');
+      el.addEventListener('animationend', function onOut(e) {
+        if (e.animationName !== 'bj-flip-out') return;
+        el.removeEventListener('animationend', onOut);
+        el.classList.remove('bj-flip-out', 'back', 'bj-deal-in');
+        if (RED_SUITS.has(card.suit)) el.classList.add('red');
+        const r = document.createElement('div'); r.className = 'bj-card-rank'; r.textContent = card.rank;
+        const s = document.createElement('div'); s.className = 'bj-card-suit'; s.textContent = card.suit;
+        el.appendChild(r); el.appendChild(s);
+        el.classList.add('bj-flip-in');
+        el.addEventListener('animationend', function onIn(e) {
+          if (e.animationName !== 'bj-flip-in') return;
+          el.removeEventListener('animationend', onIn);
+          resolve();
+        });
+      });
+    });
+  }
+
+  function updateDisplay(hideDealer) {
+    playerValEl.textContent = playerCards.length ? handTotal(playerCards) : '';
+    dealerValEl.textContent = !dealerCards.length ? '' : hideDealer ? '?' : handTotal(dealerCards);
+    handValEl.textContent   = playerCards.length ? handTotal(playerCards) : '—';
+    balanceEl.textContent   = '$' + balance;
+    betEl.textContent       = '$' + bet;
+  }
+
+  function lockButtons() {
+    [btnHit, btnStand, btnDouble, btnDeal, btnClearBet].forEach(b => { b.disabled = true; });
+    document.querySelectorAll('.bj-chip').forEach(b => { b.disabled = true; });
+  }
+
+  function setButtons(active) {
+    btnHit.disabled    = !active;
+    btnStand.disabled  = !active;
+    btnDouble.disabled = !active || playerCards.length !== 2;
+    btnDeal.disabled   = active;
+    document.querySelectorAll('.bj-chip').forEach(b => { b.disabled = active; });
+    btnClearBet.disabled = active;
+  }
+
+  function msg(text) { messageEl.textContent = text; }
+
+  async function startRound() {
+    if (bet === 0) { msg('place a bet first'); return; }
+    buildDeck();
+    // dealerCards[0] = hole card (face-down), dealerCards[1] = up card (face-up)
+    playerCards = [drawCard(), drawCard()];
+    dealerCards = [drawCard(), drawCard()];
+    gameActive  = true;
+    msg('');
+    lockButtons();
+
+    dealerHand.innerHTML = '';
+    playerHand.innerHTML = '';
+    dealerEls = [null, null];
+    playerEls = [];
+    updateDisplay(true);
+
+    // Alternating deal: player1, dealer-up, player2, dealer-hole
+    playerEls.push(appendCard(playerHand, playerCards[0], false, 0));
+    dealerEls[1] = appendCard(dealerHand, dealerCards[1], false, DEAL_MS);
+    playerEls.push(appendCard(playerHand, playerCards[1], false, DEAL_MS * 2));
+    dealerEls[0] = appendCard(dealerHand, dealerCards[0], true,  DEAL_MS * 3);
+
+    await sleep(DEAL_MS * 3 + ANIM_MS + 60);
+    updateDisplay(true);
+
+    if (handTotal(playerCards) === 21) {
+      await revealAndResolve();
+    } else {
+      setButtons(true);
+    }
+  }
+
+  async function hit() {
+    lockButtons();
+    const card = drawCard();
+    playerCards.push(card);
+    playerEls.push(appendCard(playerHand, card, false, 0));
+
+    await sleep(ANIM_MS + 60);
+    updateDisplay(true);
+
+    const total = handTotal(playerCards);
+    if (total > 21 || total === 21) {
+      await revealAndResolve();
+    } else {
+      setButtons(true); // double disabled automatically since playerCards.length > 2
+    }
+  }
+
+  async function stand() {
+    lockButtons();
+    await revealAndResolve();
+  }
+
+  async function doubleDown() {
+    if (balance < bet) { msg('not enough balance to double'); return; }
+    lockButtons();
+    bet *= 2;
+    updateDisplay(true);
+
+    const card = drawCard();
+    playerCards.push(card);
+    playerEls.push(appendCard(playerHand, card, false, 0));
+
+    await sleep(ANIM_MS + 60);
+    updateDisplay(true);
+    await revealAndResolve();
+  }
+
+  async function revealAndResolve() {
+    // Flip the hole card in-place
+    await flipCard(dealerEls[0], dealerCards[0]);
+    updateDisplay(false);
+    await sleep(80);
+
+    // Dealer draws cards one-by-one (only needed if player hasn't busted)
+    if (handTotal(playerCards) <= 21) {
+      while (handTotal(dealerCards) < 17) {
+        const card = drawCard();
+        dealerCards.push(card);
+        const el = appendCard(dealerHand, card, false, 0);
+        dealerEls.push(el);
+        await sleep(ANIM_MS + 120);
+        updateDisplay(false);
+      }
+    }
+
+    const pTotal   = handTotal(playerCards);
+    const dTotal   = handTotal(dealerCards);
+    const playerBJ = playerCards.length === 2 && pTotal === 21;
+    const dealerBJ = dealerCards.length === 2 && dTotal === 21;
+
+    let text, delta;
+    if (playerBJ && dealerBJ)   { text = 'both blackjack — push';              delta = 0; }
+    else if (playerBJ)          { text = 'blackjack! you win $' + Math.floor(bet * 1.5); delta = Math.floor(bet * 1.5); }
+    else if (dealerBJ)          { text = 'dealer blackjack — you lose';        delta = -bet; }
+    else if (pTotal > 21)       { text = 'bust! dealer wins';                  delta = -bet; }
+    else if (dTotal > 21)       { text = 'dealer busts — you win! +$' + bet;   delta = bet; }
+    else if (pTotal > dTotal)   { text = 'you win! +$' + bet;                  delta = bet; }
+    else if (pTotal === dTotal) { text = 'push';                               delta = 0; }
+    else                        { text = 'dealer wins';                         delta = -bet; }
+
+    endRound(text, delta);
+  }
+
+  function endRound(text, delta) {
+    gameActive = false;
+    balance   += delta;
+    if (balance < 0) balance = 0;
+    bet = 0;
+    msg(text);
+    updateDisplay(false);
+    setButtons(false);
+    if (balance === 0) msg(text + ' · bankrupt — reset_bank() to continue');
+  }
+
+  function addBet(amount) {
+    if (gameActive) return;
+    if (balance <= 0) { msg('bankrupt — reset_bank() to continue'); return; }
+    const room = balance - bet;
+    if (room <= 0) return;
+    bet += Math.min(amount, room);
+    betEl.textContent = '$' + bet;
+    msg('');
+  }
+
+  btnDeal.addEventListener('click', startRound);
+  btnHit.addEventListener('click', hit);
+  btnStand.addEventListener('click', stand);
+  btnDouble.addEventListener('click', doubleDown);
+  btnClearBet.addEventListener('click', () => { if (!gameActive) { bet = 0; betEl.textContent = '$0'; } });
+  btnReset.addEventListener('click', () => {
+    if (gameActive) return;
+    balance = 100; bet = 0;
+    playerCards = []; dealerCards = [];
+    dealerEls = []; playerEls = [];
+    dealerHand.innerHTML = '';
+    playerHand.innerHTML = '';
+    updateDisplay(false);
+    setButtons(false);
+    msg('bank reset — place a bet and deal()');
+  });
+  document.querySelectorAll('.bj-chip').forEach(btn => {
+    btn.addEventListener('click', () => addBet(parseInt(btn.dataset.amount, 10)));
+  });
+
+  buildDeck();
+  updateDisplay(false);
+  setButtons(false);
+})();
+
 })(); // end games IIFE
  
 }); // end sections-loaded listener
