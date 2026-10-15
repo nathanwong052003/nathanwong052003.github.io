@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /unused/
 
-Sitemap: https://nathanwong052003.github.io/sitemap.xml
+Sitemap: https://nathanwongsh.dev/sitemap.xml

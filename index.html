@@ -1,78 +1,218 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NWSH</title>
-<meta name="description" content="Portfolio of Nathan Wong Shih Hao — Computer Scientist, Data Scientist & Data Engineer at HKUST." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23f7eee0'/><text x='6' y='23' font-family='monospace' font-size='16' fill='%23c87533'>N</text></svg>" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Nathan Wong — Technology Consultant at Capgemini Hong Kong</title>
+<meta name="description" content="Nathan Wong is a Technology Consultant at Capgemini Hong Kong and a software and AI engineer who turns LLM prototypes into secure, tested enterprise products.">
+<link rel="canonical" href="https://nathanwongsh.dev/">
+<link rel="icon" href="images/favicon.ico">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nathan Wong">
+<meta property="og:title" content="Nathan Wong — Technology Consultant at Capgemini Hong Kong">
+<meta property="og:description" content="Software and AI engineer. I turn LLM prototypes into secure, tested enterprise products, most recently a GenAI risk assistant built for about 3,000 users.">
+<meta property="og:url" content="https://nathanwongsh.dev/">
+<meta property="og:image" content="https://nathanwongsh.dev/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nathan Wong — I turn LLM prototypes into secure, tested enterprise products.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nathan Wong — Technology Consultant at Capgemini Hong Kong">
+<meta name="twitter:description" content="Software and AI engineer. I turn LLM prototypes into secure, tested enterprise products.">
+<meta name="twitter:image" content="https://nathanwongsh.dev/images/og.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet"></noscript>
-<link rel="preload" href="assets/css/style.css" as="style">
-<link rel="stylesheet" href="assets/css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<canvas id="particles" aria-hidden="true"></canvas>
-<div id="cursorGlow" aria-hidden="true"></div>
-<div id="scrollBar" aria-hidden="true"></div>
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Nathan Wong</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#naia">Project NAIA</a>
+      <a href="#path">Experience</a>
+      <a href="#kit">Toolkit</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<!-- sections loaded dynamically from sections/ folder -->
-<div id="sections-container"></div>
+<main id="main">
 
-<!-- section loader — runs before main.js so all DOM elements exist -->
-<script>
-(function() {
-  'use strict';
+  <!-- Hero -->
+  <section class="wrap hero" aria-labelledby="hero-title">
+    <div class="hero-main">
+      <div class="pill">Technology Consultant · Capgemini Hong Kong</div>
+      <h1 id="hero-title">I turn LLM prototypes into secure, tested enterprise products.</h1>
+      <p class="lede">Software and AI engineer. Most recently I helped deliver a GenAI risk assistant for a large insurer, built to serve about 3,000 users, from prototype to user acceptance testing.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-ghost" href="documents/Nathan_Wong_CV.pdf">Download CV</a>
+      </div>
+      <p class="meta">BEng Computer Science, HKUST (2026) · Hong Kong · English, Bahasa Indonesia, 中文</p>
+    </div>
+    <aside class="hero-aside" aria-label="Results so far">
+      <div class="results">
+        <p class="lbl">Results so far</p>
+        <div class="stat stat-1"><div class="stat-n num">~3,000</div><p class="stat-d">users the GenAI risk assistant was built to serve</p></div>
+        <div class="stat stat-2"><div class="stat-n num">97%</div><p class="stat-d">average R² on Project NAIA forecasts</p></div>
+        <div class="stat stat-3"><div class="stat-n num">30%</div><p class="stat-d">lower inference cost from an SLM/LLM router</p></div>
+      </div>
+    </aside>
+  </section>
 
-  const SECTIONS = [
-    '01-nav',
-    '02-hero',
-    '03-ticker',
-    '04-about',
-    '05-skills',
-    '06-projects',
-    '07-experience',
-    '08-fyp',
-    '09-gallery',
-    '10-play',
-    '11-contact',
-    '12-footer',
-  ];
+  <!-- Selected work -->
+  <section class="wrap work" id="work" aria-labelledby="work-title">
+    <div class="sec-head">
+      <h2 id="work-title">Selected work</h2>
+      <p>One enterprise product taken to UAT, and four projects built to answer a question I had.</p>
+    </div>
+    <div class="bento">
+      <article class="cell cell-feature">
+        <div>
+          <p class="lbl">2026 · Capgemini · Group Risk</p>
+          <h3>GenAI Risk Assistant</h3>
+          <p>Staff ask risk questions in plain English and get narrative, tables and charts from a text2SQL agent. I was the sole frontend developer: 15k lines of TypeScript in Next.js and React, with live-streamed agent answers, multi-thread history, inline charts and CSV export.</p>
+        </div>
+        <div>
+          <p class="detail">Secured with Microsoft Entra ID, routed through a hardened proxy, shipped via GitHub Actions to Artifactory and Azure. 64 Playwright BDD scenarios, 73 unit tests, a 48-question UAT suite.</p>
+          <ul class="tags" aria-label="Technologies"><li>Next.js</li><li>TypeScript</li><li>Azure</li><li>Playwright</li></ul>
+        </div>
+      </article>
+      <article class="cell">
+        <div>
+          <p class="lbl">2026</p>
+          <h3>SLM/LLM Router</h3>
+          <p>FastAPI router with four routing strategies, built on a benchmark of 5+ small models. Inference cost down 30%.</p>
+        </div>
+        <a class="cell-link" href="https://github.com/nathanwong052003/slm-llm-routing" target="_blank" rel="noopener">GitHub →<span class="sr-only"> (SLM/LLM Router repository)</span></a>
+      </article>
+      <article class="cell cell-soft">
+        <div>
+          <p class="lbl">2026</p>
+          <h3>Morning Digest</h3>
+          <p>GitHub Actions, Google OAuth, Gmail and Drive assemble a daily brief.</p>
+        </div>
+        <a class="cell-link" href="https://github.com/nathanwong052003/morning-digest-workflows" target="_blank" rel="noopener">GitHub →<span class="sr-only"> (Morning Digest repository)</span></a>
+      </article>
+      <article class="cell">
+        <div>
+          <p class="lbl">Local inference</p>
+          <h3>Containerised SLMs</h3>
+          <p>Quantised GGUF models on Ollama in Docker, reproducible on consumer hardware.</p>
+        </div>
+      </article>
+      <article class="cell">
+        <div>
+          <p class="lbl">2025</p>
+          <h3>S&amp;P 500 Forecasting</h3>
+          <p>ARIMA, SARIMA, ETS, LightGBM and LSTM, head to head.</p>
+        </div>
+        <a class="cell-link" href="https://github.com/nathanwong052003/snp500-time-series-prediction" target="_blank" rel="noopener">GitHub →<span class="sr-only"> (S&amp;P 500 Forecasting repository)</span></a>
+      </article>
+    </div>
+  </section>
 
-  const container = document.getElementById('sections-container');
+  <!-- Project NAIA -->
+  <section class="band" id="naia" aria-labelledby="naia-title">
+    <div class="wrap">
+      <div class="ghost-num" aria-hidden="true">97%</div>
+      <div class="band-copy">
+        <p class="eyebrow">Hitachi Rail GTS · Jun 2025 – Feb 2026</p>
+        <h2 id="naia-title">Project NAIA</h2>
+        <p>Passenger-flow forecasting for multi-line railway networks. ARIMA, SARIMAX and LightGBM models averaged 97% R². A Kafka pipeline with schema registry and validation unified multi-format ingestion, ClickHouse batching sped up data collection, and the primary scripting algorithm ran 20% faster.</p>
+      </div>
+      <div class="stack">
+        <div class="tile"><p class="lbl">Ingest</p><p class="tile-name">Apache Kafka</p><p class="tile-sub">Producer–consumer, schema registry</p></div>
+        <div class="tile"><p class="lbl">Store</p><p class="tile-name">ClickHouse</p><p class="tile-sub">Batch processing</p></div>
+        <div class="tile"><p class="lbl">Forecast</p><p class="tile-name">LightGBM</p><p class="tile-sub">With ARIMA and SARIMAX</p></div>
+        <div class="tile tile-dark"><p class="lbl">Ship</p><p class="tile-name">Jenkins · Kubernetes</p><p class="tile-sub">CI/CD to the ALVEA platform</p></div>
+      </div>
+    </div>
+  </section>
 
-  // Load sections sequentially to preserve DOM order
-  function loadNext(index) {
-    if (index >= SECTIONS.length) {
-      // All sections loaded — dispatch event so main.js can proceed
-      document.dispatchEvent(new CustomEvent('sections-loaded'));
-      return;
-    }
+  <!-- Experience -->
+  <section class="wrap path" id="path" aria-labelledby="path-title">
+    <h2 id="path-title">Where I've worked and led</h2>
+    <ol class="timeline">
+      <li class="job">
+        <div class="job-when"><p class="when">Mar 2026 – Present</p><p class="where">Hong Kong</p></div>
+        <div class="job-body">
+          <h3>Technology Consultant, Capgemini</h3>
+          <p>Co-delivered the GenAI risk assistant and owned its chat frontend. Fed each round of UAT feedback into chatbot tuning and the text2SQL data catalogue until it answered all 48 UAT questions. Fixed firewall and routing faults with the infrastructure team, and added 15-second SSE heartbeats so long LLM answers stopped failing at the 230-second App Service idle timeout. Benchmarked Phi, Gemma and Qwen to shape edge AI strategy, then built a FastAPI SLM/LLM router, including a fine-tuned sentence transformer that scores query complexity.</p>
+        </div>
+      </li>
+      <li class="job offset">
+        <div class="job-when"><p class="when">Jun 2025 – Feb 2026</p><p class="where">Hong Kong</p></div>
+        <div class="job-body">
+          <h3>R&amp;D Software Intern, Hitachi Rail GTS</h3>
+          <p>Forecasting models, Kafka ingestion and ClickHouse batching for NAIA, then Jenkins CI/CD and a Kubernetes deployment on ALVEA.</p>
+        </div>
+      </li>
+      <li class="job">
+        <div class="job-when"><p class="when">Jun – Aug 2024</p><p class="where">Hong Kong</p></div>
+        <div class="job-body">
+          <h3>Software Developer, TRM HK</h3>
+          <p>Evaluated LLMs (GPT-4o, GPT-4o mini, Claude and others) for filtering and prioritising insurance claims. A staff chatbot grew from 2 messages a week to 20 a day (70x), and a client-side search bar cut search time by 50%.</p>
+        </div>
+      </li>
+      <li class="job offset soft">
+        <div class="job-when"><p class="when">Feb 2023 – Feb 2024</p><p class="where">HKUST</p></div>
+        <div class="job-body">
+          <h3>Leadership</h3>
+          <p><strong>President, Southeast Asian Students' Association.</strong> Grew event turnout by 300% across four country groups and represented members at the Students' Union. <strong>13th Internal Affairs Executive Director, ICMS.</strong> Led 28 chapter directors and 92 associates worldwide, building relations with Axiata, Shopee, Shell, P&amp;G and Maybank.</p>
+        </div>
+      </li>
+      <li class="job">
+        <div class="job-when"><p class="when">Sept 2022 – Jun 2026</p><p class="where">Hong Kong</p></div>
+        <div class="job-body">
+          <h3>BEng Computer Science, HKUST</h3>
+          <p>Exchange to the University of Waterloo. Reaching Out Award (2024) and University Entrance Scholarship (2022).</p>
+        </div>
+      </li>
+    </ol>
+  </section>
 
-    const name = SECTIONS[index];
-    fetch('sections/' + name + '.html')
-      .then(function(res) {
-        if (!res.ok) throw new Error('Failed to load sections/' + name + '.html');
-        return res.text();
-      })
-      .then(function(html) {
-        // Insert the fetched HTML into the container
-        container.insertAdjacentHTML('beforeend', html);
-        loadNext(index + 1);
-      })
-      .catch(function(err) {
-        console.error(err);
-        loadNext(index + 1); // skip failed section and continue
-      });
-  }
+  <!-- Toolkit -->
+  <section class="wrap kit" id="kit" aria-labelledby="kit-title">
+    <h2 id="kit-title">What I reach for</h2>
+    <div class="kit-groups">
+      <div><p class="lbl">Languages and frameworks</p><ul class="chips"><li>Python</li><li>TypeScript</li><li>JavaScript</li><li>Java</li><li>C/C++</li><li>C#</li><li>Scala</li><li>SQL</li><li>React</li><li>Next.js</li><li>FastAPI</li></ul></div>
+      <div><p class="lbl">AI and data</p><ul class="chips blue"><li>PyTorch</li><li>Scikit-Learn</li><li>XGBoost</li><li>LightGBM</li><li>LLM evaluation</li><li>text2SQL</li><li>Kafka</li><li>Spark</li><li>ClickHouse</li></ul></div>
+      <div><p class="lbl">Cloud and DevOps</p><ul class="chips"><li>Azure</li><li>AWS</li><li>GCP</li><li>Docker</li><li>Kubernetes</li><li>Jenkins</li><li>GitHub Actions</li></ul></div>
+      <div><p class="lbl">Tools</p><ul class="chips"><li>Git</li><li>Playwright</li><li>Vitest</li><li>Artifactory</li><li>Ollama</li><li>LM Studio</li><li>Hadoop</li><li>Avro</li><li>Pulsar</li><li>Tailwind</li><li>Bash</li><li>HTML/CSS</li></ul></div>
+      <p class="kit-note">Away from the keyboard: golf, badminton, travel, landscape photography, aviation, 3D printing, and following Southeast Asian economies.</p>
+    </div>
+  </section>
 
-  loadNext(0);
-})();
-</script>
+  <!-- Contact -->
+  <section class="wrap contact" id="contact" aria-labelledby="contact-title">
+    <div class="cta">
+      <div class="cta-copy">
+        <h2 id="contact-title">Have a project, or a question?</h2>
+        <p>Work rights in Hong Kong and Malaysia, no sponsorship needed. I read everything and reply to most of it.</p>
+      </div>
+      <div class="cta-links">
+        <a class="btn btn-primary" href="mailto:nathanwongshihhao@gmail.com">nathanwongshihhao@gmail.com</a>
+        <div class="row">
+          <a class="btn btn-ghost" href="https://github.com/nathanwong052003" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="https://linkedin.com/in/nwsh" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
-<script defer src="assets/js/main.js"></script>
+<footer class="wrap site-footer">
+  <span>Hong Kong · nathanwongsh.dev</span>
+  <span>© 2026 Nathan Wong Shih Hao · 黄诗豪</span>
+</footer>
 </body>
 </html>
