@@ -1,1 +1,4 @@
 /.claude
+node_modules/
+tests/node_modules/
+tests/.out/

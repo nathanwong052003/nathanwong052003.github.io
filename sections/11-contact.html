@@ -4,7 +4,7 @@
 <section id="contact" class="section">
   <div class="container">
     <div class="section-inner">
-      <div class="section-label reveal">§ 07 — Contact</div>
+      <div class="section-label reveal">§ 09 — Contact</div>
       <h2 class="section-heading reveal">Say <em>hello.</em></h2>
       <div class="contact-grid reveal">
         <div>
@@ -54,6 +54,15 @@
           method="POST"
         >
           <input type="hidden" name="_subject" value="Contact from portfolio" />
+          <!-- honeypot: invisible to people, bots fill it in (Formspree discards those) -->
+          <input
+            type="text"
+            name="_gotcha"
+            class="hp-field"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
           <div class="form-group">
             <label for="c-name">name</label>
             <input

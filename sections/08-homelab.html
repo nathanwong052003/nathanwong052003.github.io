@@ -1,0 +1,330 @@
+<!-- ============================================================
+     HOME SERVER — SELF-HOSTED PLATFORM
+     ============================================================ -->
+<section id="homelab" class="section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-label reveal">§ 06 — Self-hosted</div>
+      <h2 class="section-heading reveal">My <em>home server.</em></h2>
+      <p class="lab-intro reveal">
+        I run a small mini PC at home with Ubuntu Server on it. It handles DNS
+        for the house, my password manager, a media server and a dashboard,
+        about fifteen containers in all. I could have had most of it running in
+        a weekend. I took longer on purpose and set up the certificates,
+        networking, backups and deploys before adding more services, because
+        those are the parts that are painful to fix later.
+      </p>
+
+      <div class="stats-row reveal">
+        <div class="stat-block">
+          <div class="stat-num" data-target="15" data-suffix="+">15+</div>
+          <div class="stat-label">containers,<br />one stack each</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num" data-target="10">10</div>
+          <div class="stat-label">private HTTPS<br />service names</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num" data-target="0">0</div>
+          <div class="stat-label">inbound connections<br />needed to deploy</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num" data-target="3">3</div>
+          <div class="stat-label">reboot tests to<br />prove routing sticks</div>
+        </div>
+      </div>
+
+      <figure
+        class="lab-figure reveal"
+        id="labArch"
+        title="Click to expand"
+        data-cap="Home server: high-level architecture"
+      >
+        <img
+          src="images/homelab_architecture.webp"
+          alt="Architecture diagram of the home server: a secure gateway, apps, monitoring, a media safety gate, backups, DNS filtering and CI/CD running in containers on one mini PC, connected to Backblaze, ntfy, Healthchecks.io, GitHub and a VPN provider."
+          width="2490"
+          height="1485"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <!-- ─────────────── foundation ─────────────── -->
+      <div class="lab-block reveal">
+        <div class="skill-group-label">// The foundation</div>
+        <p class="lab-lede">
+          Before adding more services I wanted these settled:
+        </p>
+        <div class="lab-principles">
+          <div class="lab-principle">
+            <div class="lab-pnum">01</div>
+            <h3>One stack per service</h3>
+            <p>
+              Each service has its own Docker Compose folder in git, so a change shows up as a diff and I can revert it.
+            </p>
+          </div>
+          <div class="lab-principle">
+            <div class="lab-pnum">02</div>
+            <h3>HTTPS for everything</h3>
+            <p>
+              Caddy serves ten internal names behind a single Let's Encrypt wildcard certificate (Cloudflare DNS-01).
+            </p>
+          </div>
+          <div class="lab-principle">
+            <div class="lab-pnum">03</div>
+            <h3>Ports and secrets</h3>
+            <p>
+              Docker-published ports skip the ufw firewall, so I bind each one to a specific host IP. The <code>.gitignore</code> is an allowlist, so I can't commit a secret by mistake.
+            </p>
+          </div>
+          <div class="lab-principle">
+            <div class="lab-pnum">04</div>
+            <h3>Pinned subnets</h3>
+            <p>
+              I fixed the Docker subnets so a routing rule can't end up matching the wrong network.
+            </p>
+          </div>
+          <div class="lab-principle">
+            <div class="lab-pnum">05</div>
+            <h3>Testing</h3>
+            <p>
+              I restored a backup before trusting it, rebooted three times to check the routing held, and tried to sneak a test signature past the antivirus.
+            </p>
+          </div>
+          <div class="lab-principle">
+            <div class="lab-pnum">06</div>
+            <h3>Documentation</h3>
+            <p>
+              A setup guide, a runbook for each part, and architecture diagrams generated from code so I can regenerate them when something changes.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────── CI/CD ─────────────── -->
+      <div class="lab-block reveal">
+        <div class="skill-group-label">
+          // CI/CD
+        </div>
+        <p class="lab-lede">
+          The config for the whole server is in a private GitHub repo, and
+          merging to <code>main</code> is how changes get onto the machine. The
+          GitHub Actions runner lives on the server itself and only makes
+          outbound connections, so deploys need no open inbound port and no SSH
+          key stored in GitHub.
+        </p>
+
+        <ol class="lab-flow" aria-label="Deploy pipeline stages">
+          <li>
+            <span class="lab-step">pull request</span>
+            <span class="lab-step-sub">branch ruleset on main</span>
+          </li>
+          <li>
+            <span class="lab-step">validate + secrets</span>
+            <span class="lab-step-sub">compose check · gitleaks</span>
+          </li>
+          <li>
+            <span class="lab-step">merge</span>
+            <span class="lab-step-sub">checks must be green</span>
+          </li>
+          <li>
+            <span class="lab-step">self-hosted runner</span>
+            <span class="lab-step-sub">outbound HTTPS only</span>
+          </li>
+          <li>
+            <span class="lab-step">deploy.sh</span>
+            <span class="lab-step-sub">--ff-only · --wait</span>
+          </li>
+          <li>
+            <span class="lab-step lab-step--end">verify</span>
+            <span class="lab-step-sub">red &rarr; rollback + phone alert</span>
+          </li>
+        </ol>
+
+        <ul class="tl-list lab-cols">
+          <li>
+            Deploys run as a user with no password and no sudo. I used POSIX
+            ACLs instead of <code>chown -R</code>, so it can only touch tracked
+            files.
+          </li>
+          <li>
+            <code>deploy.sh</code> only deploys stacks on an allowlist and
+            refuses to run if the server has uncommitted edits. It uses
+            <code>--ff-only</code> and <code>--wait</code>, so a bad deploy
+            fails the job.
+          </li>
+          <li>
+            A ruleset on <code>main</code> requires a pull request, a Compose
+            config check and a gitleaks scan to pass before anything merges.
+          </li>
+          <li>
+            If the new version isn't healthy, the server rolls back to the
+            previous commit and sends a notification to my phone.
+          </li>
+          <li>
+            The DNS, VPN and proxy stacks are marked <em>manual</em>. A merge
+            updates their files, but I restart those myself.
+          </li>
+        </ul>
+      </div>
+
+      <!-- ─────────────── drift ─────────────── -->
+      <div class="lab-block reveal">
+        <div class="skill-group-label">
+          // Drift detection
+        </div>
+        <p class="lab-lede">
+          Deploys cover changes I make through git. Two scheduled workflows
+          check for everything else, like a container I started by hand or a
+          file I edited on the server. The repo is the source of truth, and
+          neither workflow ever pushes server state back to it.
+        </p>
+        <div class="lab-drift">
+          <div class="lab-drift-card">
+            <div class="lab-cron"><span>hourly</span> &middot; 17 * * * *</div>
+            <h3>Enforce</h3>
+            <p class="lab-drift-tag">
+              Is every running container from a stack in the repo?
+            </p>
+            <ul class="tl-list">
+              <li>
+                If not, the container is stopped and its restart policy is set
+                to <em>no</em>, so it doesn't come back after a reboot. I keep
+                its settings and last logs to look at.
+              </li>
+              <li>The run is marked as failed on purpose, so I get notified.</li>
+              <li>
+                To allow something, I add it to a committed allowlist in a pull
+                request.
+              </li>
+            </ul>
+          </div>
+          <div class="lab-drift-card">
+            <div class="lab-cron"><span>nightly</span> &middot; 03:07 HKT</div>
+            <h3>Heal</h3>
+            <p class="lab-drift-tag">
+              Does the server still match the repo?
+            </p>
+            <ul class="tl-list">
+              <li>
+                Hand-edited tracked files are saved as a patch, then restored to
+                what git has.
+              </li>
+              <li>
+                Stopped containers are started. Unhealthy ones get one restart
+                and 60 seconds to recover, with a cap of ten actions per run.
+              </li>
+              <li>
+                DNS, VPN and the proxy are only reported, never restarted, since
+                a restart at 3 a.m. would drop the network.
+              </li>
+              <li>
+                Unused images, networks and build cache are cleaned up. Volumes
+                are listed but never deleted.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────── networking ─────────────── -->
+      <div class="lab-block reveal">
+        <div class="skill-group-label">// Networking</div>
+        <ul class="tl-list lab-cols">
+          <li>
+            <strong>DNS.</strong> AdGuard Home filters DNS for the whole house
+            and resolves the ten internal names locally.
+          </li>
+          <li>
+            <strong>Remote access.</strong> Tailscale, with an exit node and a
+            subnet route, makes the same names work from my phone and laptop
+            when I'm away.
+          </li>
+          <li>
+            <strong>VPN.</strong> The router runs a ProtonVPN WireGuard client,
+            and a per-device list decides which devices use it.
+          </li>
+          <li>
+            <strong>Routing on the server.</strong> Linux policy routing
+            (netplan, <code>ip rule</code>, a dedicated routing table and ARP
+            sysctl tuning) decides which traffic goes through the VPN. The
+            Docker subnets are pinned so the rules stay predictable, and I
+            rebooted three times to confirm they persist.
+          </li>
+        </ul>
+        <figure
+          class="lab-figure"
+          id="labTraffic"
+          title="Click to expand"
+          data-cap="Home server: how traffic moves"
+        >
+          <img
+            src="images/homelab_traffic.webp"
+            alt="Traffic diagram showing four paths: home devices through the router, away-from-home devices over a Tailscale tunnel, exit-node traffic leaving through the VPN, and the server's own outbound traffic for backups, alerts and deploys."
+            width="2576"
+            height="1876"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+
+      <!-- ─────────────── also ─────────────── -->
+      <div class="lab-block reveal">
+        <div class="skill-group-label">// Other pieces</div>
+        <div class="lab-minis">
+          <div class="lab-mini">
+            <h3>Backups</h3>
+            <p>
+              restic encrypts backups every night before they go to Backblaze
+              B2. SQLite databases are snapshotted first so the copies are
+              consistent, and Healthchecks.io alerts me if a backup doesn't
+              arrive. When I tested a restore, every database passed an
+              integrity check and Uptime Kuma came back with all 19 monitors.
+              The test also showed the backup service was running without a
+              restic cache and taking 8 minutes. One line fixed that, and it
+              now takes about 30 seconds.
+            </p>
+          </div>
+          <div class="lab-mini">
+            <h3>Antivirus scanning</h3>
+            <p>
+              ClamAV scans every file before it reaches the media library. When
+              I hid a harmless test signature deep inside a large file, it
+              wasn't caught: stream scanning only reached about 90&nbsp;MB, and
+              ClamAV can't scan a single file over 2&nbsp;GiB. Large files are
+              now split into overlapping slices. I confirmed it with a marker
+              near the end of a 2.5&nbsp;GB file, which now gets quarantined.
+            </p>
+          </div>
+          <div class="lab-mini">
+            <h3>Monitoring</h3>
+            <p>
+              Uptime Kuma checks services, Beszel tracks host metrics and ntfy
+              sends alerts to my phone. Healthchecks.io works as an external
+              dead-man's switch, so I find out if the whole server goes down.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-tags lab-tags reveal">
+        <span class="proj-tag">Ubuntu Server</span>
+        <span class="proj-tag">Docker Compose</span>
+        <span class="proj-tag">Caddy</span>
+        <span class="proj-tag">Tailscale</span>
+        <span class="proj-tag">WireGuard</span>
+        <span class="proj-tag">AdGuard Home</span>
+        <span class="proj-tag">GitHub Actions</span>
+        <span class="proj-tag">restic</span>
+        <span class="proj-tag">ClamAV</span>
+        <span class="proj-tag">Policy routing</span>
+      </div>
+      <div class="lab-next reveal">
+        <span>That's the technical side. Away from the keyboard, I take photos.</span>
+        <a href="#gallery">&darr; photographs</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -150,3 +150,17 @@ Feel free to fork this project and customize it for your own portfolio.
 ---
 
 Made by Nathan Wong Shih Hao
+
+## Development workflow
+
+- **Edit sections in `sections/`**, then run `node tools/build.mjs` — it bakes them into `index.html`
+  (so the page has real content with no runtime fetching). `node tools/build.mjs --check` fails if `index.html` is stale.
+- **Games** live in `assets/js/games.js` and are loaded on demand by `assets/js/main.js` when the Play section nears the viewport.
+- **Tests** (Playwright, in `tests/`):
+  ```bash
+  cd tests && npm install && npx playwright install chromium
+  node regression.mjs                          # functional + security/perf/a11y checks
+  node visual.mjs --baseline /path/to/old/copy # pixel-diff every section vs a previous copy
+  ```
+- Images are WebP (`images/…`); keep new photos ≤ 2400 px (full) / ~800 px (thumb) wide.
+- The site is served at `nathanwongsh.dev` (see `CNAME`); canonical/OG/sitemap URLs use that domain.
