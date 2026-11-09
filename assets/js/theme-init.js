@@ -16,6 +16,16 @@
     if (dark) document.documentElement.setAttribute("data-theme", "dark");
   } catch (e) {}
 
+  // Content marked .reveal starts hidden only when JS is running (html.js), and the
+  // page script flags html.ready once it has taken over. If that never happens (script
+  // blocked, failed, or an out-of-date cached copy), show everything after 3s rather
+  // than leave the page blank.
+  var root = document.documentElement;
+  root.classList.add("js");
+  setTimeout(function () {
+    if (!root.classList.contains("ready")) root.classList.add("reveal-failsafe");
+  }, 3000);
+
   var fonts = document.getElementById("gfonts");
   if (fonts) {
     var on = function () {

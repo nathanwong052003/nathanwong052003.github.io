@@ -4,6 +4,7 @@
 
 (function () {
   function init() {
+    document.documentElement.classList.add("ready");
     /* ─────────── dark mode toggle ─────────── */
     (function () {
       const root = document.documentElement;
