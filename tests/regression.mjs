@@ -244,7 +244,7 @@ const EXPECT = {
   ],
   contact: [
     "// get in touch",
-    "  email    nwshao@connect.ust.hk",
+    "  email    nathanwongshihhao@gmail.com",
     "  github   github.com/nathanwong052003",
     "  linkedin /in/nathan-wong-shih-hao",
     "",
