@@ -1,78 +1,96 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NWSH</title>
-<meta name="description" content="Portfolio of Nathan Wong Shih Hao — Computer Scientist, Data Scientist & Data Engineer at HKUST." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23f7eee0'/><text x='6' y='23' font-family='monospace' font-size='16' fill='%23c87533'>N</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet"></noscript>
-<link rel="preload" href="assets/css/style.css" as="style">
-<link rel="stylesheet" href="assets/css/style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NWSH</title>
+    <meta
+      name="description"
+      content="Portfolio of Nathan Wong Shih Hao — Computer Scientist, Data Scientist & Data Engineer at HKUST."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23f7eee0'/><text x='6' y='23' font-family='monospace' font-size='16' fill='%23c87533'>N</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap"
+        rel="stylesheet"
+    /></noscript>
+    <link rel="preload" href="assets/css/style.css" as="style" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div id="cursorGlow" aria-hidden="true"></div>
+    <div id="scrollBar" aria-hidden="true"></div>
 
-<canvas id="particles" aria-hidden="true"></canvas>
-<div id="cursorGlow" aria-hidden="true"></div>
-<div id="scrollBar" aria-hidden="true"></div>
+    <!-- sections loaded dynamically from sections/ folder -->
+    <div id="sections-container"></div>
 
-<!-- sections loaded dynamically from sections/ folder -->
-<div id="sections-container"></div>
+    <!-- section loader — runs before main.js so all DOM elements exist -->
+    <script>
+      (function () {
+        "use strict";
 
-<!-- section loader — runs before main.js so all DOM elements exist -->
-<script>
-(function() {
-  'use strict';
+        const SECTIONS = [
+          "01-nav",
+          "02-hero",
+          "03-ticker",
+          "04-about",
+          "05-skills",
+          "06-projects",
+          "07-experience",
+          "08-fyp",
+          "09-gallery",
+          "10-play",
+          "11-contact",
+          "12-footer",
+        ];
 
-  const SECTIONS = [
-    '01-nav',
-    '02-hero',
-    '03-ticker',
-    '04-about',
-    '05-skills',
-    '06-projects',
-    '07-experience',
-    '08-fyp',
-    '09-gallery',
-    '10-play',
-    '11-contact',
-    '12-footer',
-  ];
+        const container = document.getElementById("sections-container");
 
-  const container = document.getElementById('sections-container');
+        // Load sections sequentially to preserve DOM order
+        function loadNext(index) {
+          if (index >= SECTIONS.length) {
+            // All sections loaded — dispatch event so main.js can proceed
+            document.dispatchEvent(new CustomEvent("sections-loaded"));
+            return;
+          }
 
-  // Load sections sequentially to preserve DOM order
-  function loadNext(index) {
-    if (index >= SECTIONS.length) {
-      // All sections loaded — dispatch event so main.js can proceed
-      document.dispatchEvent(new CustomEvent('sections-loaded'));
-      return;
-    }
+          const name = SECTIONS[index];
+          fetch("sections/" + name + ".html")
+            .then(function (res) {
+              if (!res.ok)
+                throw new Error("Failed to load sections/" + name + ".html");
+              return res.text();
+            })
+            .then(function (html) {
+              // Insert the fetched HTML into the container
+              container.insertAdjacentHTML("beforeend", html);
+              loadNext(index + 1);
+            })
+            .catch(function (err) {
+              console.error(err);
+              loadNext(index + 1); // skip failed section and continue
+            });
+        }
 
-    const name = SECTIONS[index];
-    fetch('sections/' + name + '.html')
-      .then(function(res) {
-        if (!res.ok) throw new Error('Failed to load sections/' + name + '.html');
-        return res.text();
-      })
-      .then(function(html) {
-        // Insert the fetched HTML into the container
-        container.insertAdjacentHTML('beforeend', html);
-        loadNext(index + 1);
-      })
-      .catch(function(err) {
-        console.error(err);
-        loadNext(index + 1); // skip failed section and continue
-      });
-  }
+        loadNext(0);
+      })();
+    </script>
 
-  loadNext(0);
-})();
-</script>
-
-<script defer src="assets/js/main.js"></script>
-</body>
+    <script defer src="assets/js/main.js"></script>
+  </body>
 </html>

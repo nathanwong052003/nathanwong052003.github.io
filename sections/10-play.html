@@ -6,13 +6,36 @@
     <div class="section-inner">
       <div class="section-label reveal">§ 08 — playground</div>
       <h2 class="section-heading reveal">Let's <em>play.</em></h2>
-      <p class="play-intro reveal">A few interactive experiments. Keyboard + mouse.</p>
+      <p class="play-intro reveal">
+        A few interactive experiments. Keyboard + mouse.
+      </p>
 
       <!-- Tab bar -->
       <div class="game-tabs" role="tablist">
-        <button class="game-tab active" data-tab="snake" role="tab" aria-selected="true">snake_pipeline</button>
-        <button class="game-tab" data-tab="life" role="tab" aria-selected="false">conways_life</button>
-        <button class="game-tab" data-tab="type" role="tab" aria-selected="false">type_speed</button>
+        <button
+          class="game-tab active"
+          data-tab="snake"
+          role="tab"
+          aria-selected="true"
+        >
+          snake_pipeline
+        </button>
+        <button
+          class="game-tab"
+          data-tab="life"
+          role="tab"
+          aria-selected="false"
+        >
+          conways_life
+        </button>
+        <button
+          class="game-tab"
+          data-tab="type"
+          role="tab"
+          aria-selected="false"
+        >
+          type_speed
+        </button>
       </div>
 
       <!-- ─────────────── PANEL: Snake ─────────────── -->
@@ -31,8 +54,12 @@
           <canvas id="snake-canvas" aria-label="Snake Pipeline game"></canvas>
           <div id="snake-overlay" class="game-overlay">
             <div class="game-overlay-content">
-              <div id="snake-overlay-title" class="game-overlay-title">pipeline.run()</div>
-              <div id="snake-overlay-sub" class="game-overlay-sub">press run_pipeline() to start</div>
+              <div id="snake-overlay-title" class="game-overlay-title">
+                pipeline.run()
+              </div>
+              <div id="snake-overlay-sub" class="game-overlay-sub">
+                press run_pipeline() to start
+              </div>
               <button id="snake-restart" class="game-btn">restart</button>
             </div>
           </div>
@@ -72,7 +99,12 @@
           <button class="game-btn-sm" data-preset="blinker">blinker</button>
           <button class="game-btn-sm" data-preset="gun">glider gun</button>
         </div>
-        <canvas id="life-canvas" width="600" height="360" aria-label="Conway's Game of Life"></canvas>
+        <canvas
+          id="life-canvas"
+          width="600"
+          height="360"
+          aria-label="Conway's Game of Life"
+        ></canvas>
         <div class="game-hint">
           click / drag to toggle cells · speed:
           <button class="game-btn-sm" id="life-speed">fast</button>
@@ -94,14 +126,22 @@
         <div class="type-snippet-wrap">
           <div id="type-snippet" class="type-snippet"></div>
         </div>
-        <textarea id="type-input" class="type-input" placeholder="start typing to begin..." spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+        <textarea
+          id="type-input"
+          class="type-input"
+          placeholder="start typing to begin..."
+          spellcheck="false"
+          autocorrect="off"
+          autocapitalize="off"
+        ></textarea>
         <div class="type-result hidden" id="type-result">
           <div class="type-result-title">completed!</div>
           <div id="type-result-stats" class="type-result-stats"></div>
           <button id="type-next" class="game-btn">next_snippet()</button>
         </div>
       </div>
-
-    </div><!-- /section-inner -->
-  </div><!-- /container -->
+    </div>
+    <!-- /section-inner -->
+  </div>
+  <!-- /container -->
 </section>
