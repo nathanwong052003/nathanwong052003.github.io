@@ -4,6 +4,7 @@
 
 (function () {
   function init() {
+    document.documentElement.classList.add("ready");
     /* ─────────── dark mode toggle ─────────── */
     (function () {
       const root = document.documentElement;
@@ -389,7 +390,7 @@
       ],
       contact: [
         "// get in touch",
-        "  email    " + ["nwshao", "connect.ust.hk"].join("@"), // not a plain literal: keeps scrapers off the address
+        "  email    " + ["nathanwongshihhao", "gmail.com"].join("@"), // not a plain literal: keeps scrapers off the address
         "  github   github.com/nathanwong052003",
         "  linkedin /in/nathan-wong-shih-hao",
         "",
